@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ZooManagement.Core.Interfaces;
 using ZooManagement.Core.Services.Animals;
+using ZooManagement.Core.Services.Categories;
 using ZooManagement.Data.Context;
 using ZooManagement.Data.Repositories;
 
@@ -18,9 +19,13 @@ builder.Services.AddDbContext<ZooDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("ZooDatabase")));
 
-// Dependency Injection
+// Dependency Injection animals
 builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
 builder.Services.AddScoped<IAnimalService, AnimalService>();
+
+// Dependency Injection categories
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

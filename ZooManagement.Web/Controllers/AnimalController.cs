@@ -6,11 +6,11 @@ namespace ZooManagement.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AnimalsController : ControllerBase
+    public class AnimalController : ControllerBase
     {
         private readonly IAnimalService _animalService;
 
-        public AnimalsController(IAnimalService animalService)
+        public AnimalController(IAnimalService animalService)
         {
             _animalService = animalService;
         }
