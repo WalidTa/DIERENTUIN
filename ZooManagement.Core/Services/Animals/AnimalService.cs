@@ -1,60 +1,42 @@
 using ZooManagement.Core.Entities;
 using ZooManagement.Core.Enums;
+using ZooManagement.Core.Interfaces;
 
 namespace ZooManagement.Core.Services.Animals
 {
     public class AnimalService : IAnimalService
     {
-        private readonly IList<Animal> _animals;
+        private readonly IAnimalRepository _repository;
 
-        public AnimalService(IList<Animal> animals)
+        public AnimalService(IAnimalRepository repository)
         {
-            _animals = animals;
+            _repository = repository;
         }
 
         // CRUD
         public IEnumerable<Animal> GetAll()
         {
-            return _animals;
+            return _repository.GetAll();
         }
 
         public Animal? GetById(int id)
         {
-            return _animals.FirstOrDefault(a => a.Id == id);
+            return _repository.GetById(id);
         }
 
         public Animal Create(Animal animal)
         {
-            _animals.Add(animal);
-            return animal;
+            return _repository.Add(animal);
         }
 
         public Animal Update(Animal animal)
         {
-            var existing = GetById(animal.Id);
-            if (existing == null)
-            {
-                throw new InvalidOperationException("Animal not found");
-            }
-
-            existing.Name = animal.Name;
-            existing.Species = animal.Species;
-            existing.Size = animal.Size;
-            existing.DietaryClass = animal.DietaryClass;
-            existing.ActivityPattern = animal.ActivityPattern;
-            existing.SpaceRequirement = animal.SpaceRequirement;
-            existing.SecurityRequirement = animal.SecurityRequirement;
-
-            return existing;
+            return _repository.Update(animal);
         }
 
         public void Delete(int id)
         {
-            var animal = GetById(id);
-            if (animal != null)
-            {
-                _animals.Remove(animal);
-            }
+            _repository.Delete(id);
         }
 
         // Actions
@@ -63,14 +45,8 @@ namespace ZooManagement.Core.Services.Animals
             var animal = GetById(animalId);
             if (animal == null) return;
 
-            if (animal.ActivityPattern == ActivityPattern.Nocturnal)
-            {
-                animal.IsAwake = false;
-            }
-            else
-            {
-                animal.IsAwake = true;
-            }
+            animal.IsAwake = animal.ActivityPattern != ActivityPattern.Nocturnal;
+            _repository.Update(animal);
         }
 
         public void Sunset(int animalId)
@@ -78,14 +54,8 @@ namespace ZooManagement.Core.Services.Animals
             var animal = GetById(animalId);
             if (animal == null) return;
 
-            if (animal.ActivityPattern == ActivityPattern.Diurnal)
-            {
-                animal.IsAwake = false;
-            }
-            else
-            {
-                animal.IsAwake = true;
-            }
+            animal.IsAwake = animal.ActivityPattern != ActivityPattern.Diurnal;
+            _repository.Update(animal);
         }
 
         public string FeedingTime(int animalId)

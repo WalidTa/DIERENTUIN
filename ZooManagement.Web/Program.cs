@@ -1,34 +1,40 @@
 using Microsoft.EntityFrameworkCore;
+using ZooManagement.Core.Interfaces;
+using ZooManagement.Core.Services.Animals;
 using ZooManagement.Data.Context;
+using ZooManagement.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+// Controllers (API)
+builder.Services.AddControllers();
 
-// DbContext registreren
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// DbContext
 builder.Services.AddDbContext<ZooDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("ZooDatabase")));
 
+// Dependency Injection
+builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
+builder.Services.AddScoped<IAnimalService, AnimalService>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+// Middleware pipeline
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
 
 app.Run();
