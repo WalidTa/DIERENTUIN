@@ -11,7 +11,7 @@ public class Animal
     public Size Size { get; set; }
     public DietaryClass DietaryClass { get; set; }
     public ActivityPattern ActivityPattern { get; set; }
-
+    public bool IsAwake { get; set; }
     public double SpaceRequirement { get; set; }
     public SecurityLevel SecurityRequirement { get; set; }
 
