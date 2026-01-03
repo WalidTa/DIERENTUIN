@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using ZooManagement.Core.Entities;
 using ZooManagement.Core.Services.Animals;
+using ZooManagement.Core.Entities;
 
 namespace ZooManagement.Web.Controllers
 {
@@ -15,29 +15,59 @@ namespace ZooManagement.Web.Controllers
             _animalService = animalService;
         }
 
+        // GET ALL 
         [HttpGet]
         public IActionResult GetAll()
         {
+           
             var animals = _animalService.GetAll()
-        .Select(a => new AnimalDto 
-        { 
-            Id = a.Id, 
-            Name = a.Name, 
-            Species = a.Species, 
-            EnclosureName = a.Enclosure?.Name 
-        });
+                .Select(a => new
+                {
+                    a.Id,
+                    a.Name,
+                    a.Species,
+                    a.Size,
+                    a.DietaryClass,
+                    a.ActivityPattern,
+                    a.SpaceRequirement,
+                    a.SecurityRequirement,
+                    a.CategoryId,
+                    CategoryName = a.Category?.Name,
+                    a.EnclosureId,
+                    EnclosureName = a.Enclosure?.Name,
+                    EnclosureSize = a.Enclosure?.Size,
+                    EnclosureSecurity = a.Enclosure?.SecurityLevel
+                });
+
             return Ok(animals);
         }
 
+        // --- GET BY ID ---
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var animal = _animalService.GetById(id);
-            if (animal == null)
+            if (animal == null) return NotFound();
+
+            var result = new
             {
-                return NotFound();
-            }
-            return Ok(animal);
+                animal.Id,
+                animal.Name,
+                animal.Species,
+                animal.Size,
+                animal.DietaryClass,
+                animal.ActivityPattern,
+                animal.SpaceRequirement,
+                animal.SecurityRequirement,
+                animal.CategoryId,
+                CategoryName = animal.Category?.Name,
+                animal.EnclosureId,
+                EnclosureName = animal.Enclosure?.Name,
+                EnclosureSize = animal.Enclosure?.Size,
+                EnclosureSecurity = animal.Enclosure?.SecurityLevel
+            };
+
+            return Ok(result);
         }
 
         [HttpPost]
