@@ -2,8 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using ZooManagement.Core.Interfaces;
 using ZooManagement.Core.Services.Animals;
 using ZooManagement.Core.Services.Categories;
+using ZooManagement.Core.Services.Enclosures;
 using ZooManagement.Data.Context;
 using ZooManagement.Data.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,10 @@ builder.Services.AddScoped<IAnimalService, AnimalService>();
 // Dependency Injection categories
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+// Dependency Injection enclosures
+builder.Services.AddScoped<IEnclosureRepository, EnclosureRepository>();
+builder.Services.AddScoped<IEnclosureService, EnclosureService>();
 
 var app = builder.Build();
 
