@@ -45,6 +45,10 @@ namespace ZooManagement.Core.Services.Animals
             if (animal == null) 
                 throw new InvalidOperationException("Animal not found");
 
+            var category = categoryId.HasValue ? animal.Category : null;
+            if (category == null)
+                 throw new Exception("Category not found");
+
             animal.CategoryId = categoryId;
             _repository.Update(animal);
         }
@@ -54,6 +58,11 @@ namespace ZooManagement.Core.Services.Animals
             var animal = GetById(animalID);
             if (animal == null) 
                 throw new InvalidOperationException("Animal not found");
+
+            var enclosure = enclosureId.HasValue ? animal.Enclosure : null;
+            if (enclosure == null)
+                 throw new Exception("Enclosure not found");
+
 
             animal.EnclosureId = enclosureId;
             _repository.Update(animal);
