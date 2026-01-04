@@ -96,6 +96,35 @@ namespace ZooManagement.Web.Controllers
             }
         }
 
+        [HttpPut("{animalId}/category/{categoryId?}")]
+        public IActionResult AssignCategory(int animalId, int? categoryId)
+        {
+            try
+            {
+                _animalService.AssignCategory(animalId, categoryId);
+                return NoContent();
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut("{animalId}/enclosure/{enclosureId?}")]
+        public IActionResult AssignEnclosure(int animalId, int? enclosureId)
+        {
+            try
+            {
+                _animalService.AssignEnclosure(animalId, enclosureId);
+                return NoContent();
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
+        }
+
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

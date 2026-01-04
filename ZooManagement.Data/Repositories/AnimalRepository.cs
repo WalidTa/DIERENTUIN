@@ -17,12 +17,14 @@ namespace ZooManagement.Data.Repositories
         public IEnumerable<Animal> GetAll()
             => _context.Animals
                        .Include(a => a.Enclosure)
+                       .Include(a => a.Category)
                        .Include(a => a.Prey)
                        .ToList();
 
         public Animal? GetById(int id)
             => _context.Animals
                        .Include(a => a.Enclosure)
+                       .Include(a => a.Category)
                        .Include(a => a.Prey)
                        .FirstOrDefault(a => a.Id == id);
 

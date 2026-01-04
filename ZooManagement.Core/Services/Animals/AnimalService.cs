@@ -39,11 +39,32 @@ namespace ZooManagement.Core.Services.Animals
             _repository.Delete(id);
         }
 
+        public void AssignCategory(int animalID, int? categoryId)
+        {
+            var animal = GetById(animalID);
+            if (animal == null) 
+                throw new InvalidOperationException("Animal not found");
+
+            animal.CategoryId = categoryId;
+            _repository.Update(animal);
+        }
+
+        public void AssignEnclosure(int animalID, int? enclosureId)
+        {
+            var animal = GetById(animalID);
+            if (animal == null) 
+                throw new InvalidOperationException("Animal not found");
+
+            animal.EnclosureId = enclosureId;
+            _repository.Update(animal);
+        }
+        
         // Actions
         public void Sunrise(int animalId)
         {
             var animal = GetById(animalId);
-            if (animal == null) return;
+            if (animal == null) 
+                throw new InvalidOperationException("Animal not found");
 
             animal.IsAwake = animal.ActivityPattern != ActivityPattern.Nocturnal;
             _repository.Update(animal);
@@ -52,7 +73,8 @@ namespace ZooManagement.Core.Services.Animals
         public void Sunset(int animalId)
         {
             var animal = GetById(animalId);
-            if (animal == null) return;
+            if (animal == null) 
+                throw new InvalidOperationException("Animal not found");
 
             animal.IsAwake = animal.ActivityPattern != ActivityPattern.Diurnal;
             _repository.Update(animal);

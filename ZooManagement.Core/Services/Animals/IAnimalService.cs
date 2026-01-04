@@ -14,6 +14,8 @@ namespace ZooManagement.Core.Services.Animals
         // Actions
         void Sunrise(int animalId);
         void Sunset(int animalId);
+        void AssignCategory(int animalID, int? categoryId);
+        void AssignEnclosure(int animalID, int? enclosureId);
         string FeedingTime(int animalId);
         IEnumerable<string> CheckConstraints(int animalId);
     }
