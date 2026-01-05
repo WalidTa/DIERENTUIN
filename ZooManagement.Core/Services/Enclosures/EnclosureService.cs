@@ -68,6 +68,7 @@ namespace ZooManagement.Core.Services.Enclosures
                 }
 
                 _repository.Update(enclosure);
+                // todo swagger geeft geen output
                 return results;
         }
 
@@ -101,6 +102,7 @@ namespace ZooManagement.Core.Services.Enclosures
                 }
 
                 _repository.Update(enclosure);
+                //to do swagger geeft geen output
                 return results;
         }
 

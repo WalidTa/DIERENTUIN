@@ -101,15 +101,15 @@ namespace ZooManagement.Web.Controllers
         [HttpPut("{id}/sunrise")]
         public IActionResult Sunrise(int id)
         {
-            _enclosureService.Sunrise(id);
-            return NoContent();
+            var activity = _enclosureService.Sunrise(id);
+            return Ok(activity);
         }
 
         [HttpPut("{id}/sunset")]
         public IActionResult Sunset(int id)
         {
-            _enclosureService.Sunset(id);
-            return NoContent();
+            var activity = _enclosureService.Sunset(id);
+            return Ok(activity);
         }
 
         [HttpGet("{id}/feedingtime")]

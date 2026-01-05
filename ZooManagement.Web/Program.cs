@@ -3,6 +3,7 @@ using ZooManagement.Core.Interfaces;
 using ZooManagement.Core.Services.Animals;
 using ZooManagement.Core.Services.Categories;
 using ZooManagement.Core.Services.Enclosures;
+using ZooManagement.Core.Services.Zoo;
 using ZooManagement.Data.Context;
 using ZooManagement.Data.Repositories;
 
@@ -32,6 +33,9 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 // Dependency Injection enclosures
 builder.Services.AddScoped<IEnclosureRepository, EnclosureRepository>();
 builder.Services.AddScoped<IEnclosureService, EnclosureService>();
+
+// Dependency Injection zoo
+builder.Services.AddScoped<IZooService, ZooService>();
 
 var app = builder.Build();
 
