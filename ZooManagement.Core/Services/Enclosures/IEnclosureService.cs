@@ -9,5 +9,10 @@ namespace ZooManagement.Core.Services.Enclosures
         Enclosure Create(Enclosure enclosure);
         Enclosure Update(Enclosure enclosure);
         void Delete(int id);
+        IEnumerable<string> Sunrise(int enclosureId);
+        IEnumerable<string> Sunset(int enclosureId);
+        IEnumerable<string> FeedingTime(int enclosureId);
+        IEnumerable<string> CheckConstraints(int enclosureId);
+
     }
 }

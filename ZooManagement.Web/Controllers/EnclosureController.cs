@@ -97,5 +97,33 @@ namespace ZooManagement.Web.Controllers
             _enclosureService.Delete(id);
             return NoContent();
         }
+
+        [HttpPut("{id}/sunrise")]
+        public IActionResult Sunrise(int id)
+        {
+            _enclosureService.Sunrise(id);
+            return NoContent();
+        }
+
+        [HttpPut("{id}/sunset")]
+        public IActionResult Sunset(int id)
+        {
+            _enclosureService.Sunset(id);
+            return NoContent();
+        }
+
+        [HttpGet("{id}/feedingtime")]
+        public IActionResult FeedingTime(int id)
+        {
+            var feedingTimes = _enclosureService.FeedingTime(id);
+            return Ok(feedingTimes);
+        }
+
+        [HttpGet("{id}/checkconstraints")]
+        public IActionResult CheckConstraints(int id)
+        {
+            var constraints = _enclosureService.CheckConstraints(id);
+            return Ok(constraints);
+        }
     }
 }
