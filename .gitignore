@@ -1,0 +1,23 @@
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local database (LocalDB / SQLite)
+*.mdf
+*.ldf
+*.sqlite
+
+# EF Core tools
+**/Migrations/*.Designer.cs
+**/Migrations/*Snapshot.cs
+
+# JetBrains Rider
+.idea/
+
+# Logs
+*.log
+
+# Publish output
+publish/
