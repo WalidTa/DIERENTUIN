@@ -1,0 +1,190 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierencheck\\webapplication1\\data\\zoodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:data\\zoodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierencheck\\webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierencheck\\webapplication1\\models\\animal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:models\\animal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierencheck\\webapplication1\\webapplication1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:webapplication1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierencheck\\webapplication1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierencheck\\webapplication1\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierencheck\\webapplication1\\models\\enclosure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:models\\enclosure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierencheck\\webapplication1\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierencheck\\webapplication1\\models\\globalenums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:models\\globalenums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierencheck\\webapplication1\\models\\zoo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:models\\zoo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Zoo.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\Zoo.cs",
+              "RelativeDocumentMoniker": "Models\\Zoo.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\Zoo.cs",
+              "RelativeToolTip": "Models\\Zoo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T20:25:25.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GlobalEnums.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\GlobalEnums.cs",
+              "RelativeDocumentMoniker": "Models\\GlobalEnums.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\GlobalEnums.cs",
+              "RelativeToolTip": "Models\\GlobalEnums.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T20:24:23.454Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Enclosure.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\Enclosure.cs",
+              "RelativeDocumentMoniker": "Models\\Enclosure.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\Enclosure.cs",
+              "RelativeToolTip": "Models\\Enclosure.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAQwA4AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T20:23:01.651Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "Models\\Category.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\Category.cs",
+              "RelativeToolTip": "Models\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T20:22:17.204Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Animal.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\Animal.cs",
+              "RelativeDocumentMoniker": "Models\\Animal.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\Animal.cs",
+              "RelativeToolTip": "Models\\Animal.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAcwC0AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T20:19:44.91Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WebApplication1.csproj",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\WebApplication1.csproj",
+              "RelativeDocumentMoniker": "WebApplication1.csproj",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\WebApplication1.csproj",
+              "RelativeToolTip": "WebApplication1.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-05T20:15:32.688Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-05T19:54:03.936Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwAMAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T19:52:26.423Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ZooDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Data\\ZooDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ZooDbContext.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Data\\ZooDbContext.cs",
+              "RelativeToolTip": "Data\\ZooDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T19:50:00.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DierenCheck\\WebApplication1\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T19:48:51.101Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
