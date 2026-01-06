@@ -11,6 +11,7 @@ namespace WebApplication1.Models
         public SizeEnum Size { get; set; }
         public Diet DietaryClass { get; set; }
         public Activity ActivityPattern { get; set; }
+        public bool IsAwake { get; set; } = true;
         public string? Prey { get; set; }
         public double SpaceRequirement { get; set; }
         public SecurityLevel SecurityRequirement { get; set; }

@@ -1,0 +1,33 @@
+﻿@model object
+
+@{
+    ViewData["Title"] = ViewData["ActionName"] ?? "Action Result";
+    var animalName = ViewData["AnimalName"] as string ?? "";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (!string.IsNullOrEmpty(animalName))
+{
+    <p><strong>@animalName</strong></p>
+}
+
+@if (Model is IEnumerable<string> messages)
+{
+    <ul>
+        @foreach (var msg in messages)
+        {
+            <li>@msg</li>
+        }
+    </ul>
+}
+else if (Model is string message)
+{
+    <p>@message</p>
+}
+else
+{
+    <p>No data to display.</p>
+}
+
+<a href="@Url.Action("Index", "Home")">Back to home</a>

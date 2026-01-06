@@ -43,111 +43,192 @@ namespace WebApplication1.Controllers
             return View(zoo);
         }
 
-        // GET: Zoos/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Sunrise()
         {
-            return View();
+            var animals = await _context.Animals
+                .Include(a => a.Enclosure)
+                .ToListAsync();
+
+            var results = new List<string>();
+
+            foreach (var animal in animals)
+            {
+                string status;
+
+                switch (animal.ActivityPattern)
+                {
+                    case Animal.Activity.Diurnal:
+                        // Diurnal dieren zijn overdag wakker
+                        animal.IsAwake = true;
+                        status = $"{animal.Name} wakes up.";
+                        break;
+
+                    case Animal.Activity.Nocturnal:
+                        // Nocturnal dieren slapen overdag
+                        animal.IsAwake = false;
+                        status = $"{animal.Name} goes to sleep.";
+                        break;
+
+                    default:
+                        // Cathemeral of andere types zijn altijd actief
+                        animal.IsAwake = true;
+                        status = $"{animal.Name} remains active.";
+                        break;
+                }
+
+
+                results.Add(status);
+            }
+
+            ViewData["ActionName"] = "Sunrise";
+            return View("ActionResult", results);
         }
 
-        // POST: Zoos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Zoo zoo)
+        public async Task<IActionResult> Sunset()
         {
-            if (ModelState.IsValid)
+            var animals = await _context.Animals
+                .Include(a => a.Enclosure)
+                .ToListAsync();
+
+            var results = new List<string>();
+
+            foreach (var animal in animals)
             {
-                _context.Add(zoo);
+                string status;
+
+                switch (animal.ActivityPattern)
+                {
+                    case Animal.Activity.Nocturnal:
+                        animal.IsAwake = true;
+                        status = $"{animal.Name} wakes up.";
+                        break;
+                    case Animal.Activity.Diurnal:
+                        animal.IsAwake = false;
+                        status = $"{animal.Name} goes to sleep.";
+                        break;
+                    default:
+                        animal.IsAwake = true;
+                        status = $"{animal.Name} remains active.";
+                        break;
+                }
+
+                _context.Update(animal);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+
+                results.Add(status);
             }
-            return View(zoo);
+
+            ViewData["ActionName"] = "Sunset";
+            return View("ActionResult", results);
         }
 
-        // GET: Zoos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var zoo = await _context.Zoo.FindAsync(id);
-            if (zoo == null)
-            {
-                return NotFound();
-            }
-            return View(zoo);
-        }
+        //// GET: Zoos/Create
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: Zoos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Zoo zoo)
-        {
-            if (id != zoo.Id)
-            {
-                return NotFound();
-            }
+        //// POST: Zoos/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,Name")] Zoo zoo)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(zoo);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(zoo);
+        //}
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(zoo);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ZooExists(zoo.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(zoo);
-        }
+        //// GET: Zoos/Edit/5
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-        // GET: Zoos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //    var zoo = await _context.Zoo.FindAsync(id);
+        //    if (zoo == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(zoo);
+        //}
 
-            var zoo = await _context.Zoo
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (zoo == null)
-            {
-                return NotFound();
-            }
+        //// POST: Zoos/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Zoo zoo)
+        //{
+        //    if (id != zoo.Id)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(zoo);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(zoo);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!ZooExists(zoo.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(zoo);
+        //}
 
-        // POST: Zoos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var zoo = await _context.Zoo.FindAsync(id);
-            if (zoo != null)
-            {
-                _context.Zoo.Remove(zoo);
-            }
+        //// GET: Zoos/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //    var zoo = await _context.Zoo
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (zoo == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(zoo);
+        //}
+
+        //// POST: Zoos/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var zoo = await _context.Zoo.FindAsync(id);
+        //    if (zoo != null)
+        //    {
+        //        _context.Zoo.Remove(zoo);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool ZooExists(int id)
         {
