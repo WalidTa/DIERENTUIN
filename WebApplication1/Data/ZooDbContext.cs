@@ -15,6 +15,7 @@ namespace WebApplication1.Data
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Enclosure> Enclosures { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Zoo> Zoos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -110,5 +111,6 @@ namespace WebApplication1.Data
 
             modelBuilder.Entity<Animal>().HasData(animals);
         }
+        public DbSet<WebApplication1.Models.Zoo> Zoo { get; set; } = default!;
     }
 }

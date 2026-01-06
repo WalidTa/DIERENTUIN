@@ -1,8 +1,53 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Zoo Management System";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>VIRTUELE DIERENTUIN</h1>
+
+<p>
+    Welcome to your own virtual zoo! Manage your animals, categories, and enclosures!
+    You can also control the entire zoo by controlling the sunrise and sunset, feeding the animals,
+    or checking if all the animals are doing well!
+</p>
+
+<hr />
+
+<h2>Management</h2>
+
+<ul>
+    <li>
+        <a asp-controller="Animals" asp-action="Index">Manage Animals</a>
+    </li>
+    <li>
+        <a asp-controller="Categories" asp-action="Index">Manage Categories</a>
+    </li>
+    <li>
+        <a asp-controller="Enclosures" asp-action="Index">Manage Enclosures</a>
+    </li>
+</ul>
+
+<hr />
+
+<h2>Zoo Actions</h2>
+
+<p>
+    These actions apply to the entire zoo!
+</p>
+
+<ul>
+    <li>
+        <a asp-controller="Zoo" asp-action="Sunrise">Sunrise</a>
+    </li>
+    <li>
+        <a asp-controller="Zoo" asp-action="Sunset">Sunset</a>
+    </li>
+    <li>
+        <a asp-controller="Zoo" asp-action="FeedingTime">Feeding Time</a>
+    </li>
+    <li>
+        <a asp-controller="Zoo" asp-action="CheckConstraints">Check Constraints</a>
+    </li>
+    <li>
+        <a asp-controller="Zoo" asp-action="AutoAssign">Auto Assign Enclosures</a>
+    </li>
+</ul>
