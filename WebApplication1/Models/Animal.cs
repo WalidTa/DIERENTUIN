@@ -8,21 +8,19 @@ namespace WebApplication1.Models
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
 
-        public Size AnimalSize { get; set; }
-        public DietaryClass DietClass { get; set; }
-        public ActivityPattern Activity { get; set; }
-        public bool IsAwake { get; set; }
+        public SizeEnum Size { get; set; }
+        public Diet DietaryClass { get; set; }
+        public Activity ActivityPattern { get; set; }
+        public string? Prey { get; set; }
         public double SpaceRequirement { get; set; }
-        public SecurityLevel Security { get; set; }
+        public SecurityLevel SecurityRequirement { get; set; }
 
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
-
         public int? EnclosureId { get; set; }
         public Enclosure? Enclosure { get; set; }
 
-        public ICollection<Animal> Prey { get; set; } = new List<Animal>();
-        public enum Size
+        public enum SizeEnum
         {
             Microscopic,
             VerySmall,
@@ -32,7 +30,7 @@ namespace WebApplication1.Models
             VeryLarge
         }
 
-        public enum DietaryClass
+        public enum Diet
         {
             Carnivore,
             Herbivore,
@@ -41,7 +39,7 @@ namespace WebApplication1.Models
             Piscivore
         }
 
-        public enum ActivityPattern
+        public enum Activity
         {
             Diurnal,
             Nocturnal,

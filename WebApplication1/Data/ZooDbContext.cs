@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bogus;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using WebApplication1.Models;
 
@@ -11,51 +12,103 @@ namespace WebApplication1.Data
         {
         }
 
-        public DbSet<Animal> Animals => Set<Animal>();
-        public DbSet<Category> Categories => Set<Category>();
-        public DbSet<Enclosure> Enclosures => Set<Enclosure>();
-        public DbSet<Zoo> Zoos => Set<Zoo>();
+        public DbSet<Animal> Animals { get; set; }
+        public DbSet<Enclosure> Enclosures { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
-        //    protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //    {
-        //        base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        //        // --- 1. Categories seed ---
-        //        var categories = new List<Category>
-        //{
-        //    new Category { Id = 1, Name = "Mammals" },
-        //    new Category { Id = 2, Name = "Birds" },
-        //    new Category { Id = 3, Name = "Reptiles" },
-        //    new Category { Id = 4, Name = "Aquatic" }
-        //};
-        //        modelBuilder.Entity<Category>().HasData(categories);
+            // Relationships
+            modelBuilder.Entity<Animal>()
+                .HasOne(a => a.Enclosure)
+                .WithMany(e => e.Animals)
+                .HasForeignKey(a => a.EnclosureId);
 
-        //        // --- 2. Enclosures seed ---
-        //        var enclosures = new List<Enclosure>
-        //{
-        //    new Enclosure { Id = 1, Name = "Savannah", Climate = Climate.Temperate, HabitatType = HabitatType.Grassland, SecurityLevel = SecurityLevel.Medium, Size = 500 },
-        //    new Enclosure { Id = 2, Name = "Tropical Forest", Climate = Climate.Tropical, HabitatType = HabitatType.Forest, SecurityLevel = SecurityLevel.High, Size = 300 },
-        //    new Enclosure { Id = 3, Name = "Aquarium", Climate = Climate.Temperate, HabitatType = HabitatType.Aquatic, SecurityLevel = SecurityLevel.Low, Size = 200 }
-        //};
-        //        modelBuilder.Entity<Enclosure>().HasData(enclosures);
+            modelBuilder.Entity<Animal>()
+                .HasOne(a => a.Category)
+                .WithMany(c => c.Animals)
+                .HasForeignKey(a => a.CategoryId);
 
-        //        // --- 3. Animals seed met Bogus ---
-        //        var faker = new Bogus.Faker<Animal>()
-        //            .RuleFor(a => a.Id, f => f.IndexFaker + 1) // automatisch ID
-        //            .RuleFor(a => a.Name, f => f.Name.FirstName())
-        //            .RuleFor(a => a.Species, f => f.PickRandom(new[] { "Lion", "Elephant", "Parrot", "Shark", "Cobra" }))
-        //            .RuleFor(a => a.Size, f => f.PickRandom<Size>())
-        //            .RuleFor(a => a.DietaryClass, f => f.PickRandom<DietaryClass>())
-        //            .RuleFor(a => a.ActivityPattern, f => f.PickRandom<ActivityPattern>())
-        //            .RuleFor(a => a.SpaceRequirement, f => f.Random.Double(5, 100))
-        //            .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityLevel>())
-        //            .RuleFor(a => a.CategoryId, f => f.PickRandom(categories).Id)
-        //            .RuleFor(a => a.EnclosureId, f => f.PickRandom(enclosures).Id);
+            // Seed data
+            Seed(modelBuilder);
+        }
 
-        //        var animals = faker.Generate(20); // 20 dieren
-        //        modelBuilder.Entity<Animal>().HasData(animals);
-        //    }
+        private void Seed(ModelBuilder modelBuilder)
+        {
+            // Categories
+            var categories = new List<Category>
+            {
+                new() { Id = 1, Name = "Mammal" },
+                new() { Id = 2, Name = "Bird" },
+                new() { Id = 3, Name = "Reptile" }
+            };
+            var Species = new[]
+            {
+                "Lion",
+                "Tiger",
+                "Elephant",
+                "Giraffe",
+                "Zebra",
+                "Wolf",
+                "Bear",
+                "Penguin",
+                "Crocodile",
+                "Eagle"
+            };
 
+            modelBuilder.Entity<Category>().HasData(categories);
+
+            // Enclosures
+            var enclosures = new List<Enclosure>
+            {
+                new()
+                {
+                    Id = 1,
+                    Name = "Savannah Enclosure",
+                    Size = 500,
+                    SecurityLevel = SecurityLevel.Medium,
+                    Habitat = Enclosure.HabitatEnum.Grassland,
+                    Climate = Enclosure.ClimateEnum.Temperate
+                },
+                new()
+                {
+                    Id = 2,
+                    Name = "Jungle Enclosure",
+                    Size = 300,
+                    SecurityLevel = SecurityLevel.High,
+                    Habitat = Enclosure.HabitatEnum.Forest,
+                    Climate = Enclosure.ClimateEnum.Tropical
+                }
+            };
+
+            modelBuilder.Entity<Enclosure>().HasData(enclosures);
+
+            // Faker (Bogus) for Animals
+            var faker = new Faker("en");
+
+            var animals = new List<Animal>();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                animals.Add(new Animal
+                {
+                    Id = i,
+                    Name = faker.Name.FirstName(),
+                    Species = faker.PickRandom(Species),
+                    Size = faker.PickRandom<Animal.SizeEnum>(),
+                    DietaryClass = faker.PickRandom<Animal.Diet>(),
+                    ActivityPattern = faker.PickRandom<Animal.Activity>(),
+                    SpaceRequirement = faker.Random.Double(10, 100),
+                    SecurityRequirement = faker.PickRandom<SecurityLevel>(),
+                    CategoryId = faker.PickRandom(1, 2, 3),
+                    EnclosureId = faker.PickRandom(1, 2),
+                    Prey = faker.Random.Bool(0.4f) ? faker.PickRandom(Species) : null
+                });
+            }
+
+            modelBuilder.Entity<Animal>().HasData(animals);
+        }
     }
-
 }

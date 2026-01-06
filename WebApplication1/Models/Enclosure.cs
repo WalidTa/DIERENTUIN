@@ -4,22 +4,20 @@
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-
-        public Climate Climate { get; set; }
-        public HabitatType HabitatType { get; set; }
         public SecurityLevel SecurityLevel { get; set; }
-
         public double Size { get; set; }
+        public HabitatEnum Habitat { get; set; }
+        public ClimateEnum Climate { get; set; }
 
         public ICollection<Animal> Animals { get; set; } = new List<Animal>();
-        public enum HabitatType
+        public enum HabitatEnum
         {
             Forest,
             Aquatic,
             Desert,
             Grassland
         }
-        public enum ClimateType
+        public enum ClimateEnum
         {
             Tropical,
             Temperate,
