@@ -68,13 +68,27 @@
             @Html.DisplayNameFor(model => model.Category)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Id)
+            @if (Model?.Category != null)
+            {
+                @Html.DisplayFor(model => model.Category.Name)
+            }
+            else
+            {
+                <span>No category assigned</span>
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Enclosure)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Enclosure.Id)
+            @if (Model?.Enclosure != null)
+            {
+                @Html.DisplayFor(model => model.Enclosure.Name)
+            }
+            else
+            {
+                <span>No enclosure assigned</span>
+            }
         </dd>
     </dl>
 </div>
