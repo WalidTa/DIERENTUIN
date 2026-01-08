@@ -20,9 +20,39 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Enclosures
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchTerm)
         {
-            return View(await _context.Enclosures.ToListAsync());
+            ViewData["SearchTerm"] = searchTerm;
+
+            var enclosures = await _context.Enclosures
+                .Include(e => e.Animals)
+                .ToListAsync();
+
+            var projected = enclosures.Select(e => new
+            {
+                e.Id,
+                e.Name,
+                e.SecurityLevel,
+                e.Size,
+                e.Habitat,
+                e.Climate,
+                AnimalCount = e.Animals.Count
+            }).ToList();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var term = searchTerm.Trim();
+                projected = projected
+                    .Where(e => 
+                        e.Name.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                        e.SecurityLevel.ToString().Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                        e.Size.ToString().Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                        e.Habitat.ToString().Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                        e.Climate.ToString().Contains(term, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            return View(projected);
         }
 
         // GET: Enclosures/Details/5
@@ -34,7 +64,10 @@ namespace WebApplication1.Controllers
             }
 
             var enclosure = await _context.Enclosures
+                .Include(e => e.Animals)
+                    .ThenInclude(a => a.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (enclosure == null)
             {
                 return NotFound();
@@ -125,7 +158,9 @@ namespace WebApplication1.Controllers
             }
 
             var enclosure = await _context.Enclosures
+                .Include(e => e.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (enclosure == null)
             {
                 return NotFound();
@@ -139,14 +174,100 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var enclosure = await _context.Enclosures.FindAsync(id);
+            var enclosure = await _context.Enclosures
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(e => e.Id == id);
+            
             if (enclosure != null)
             {
+                // First unassign all animals from this enclosure
+                foreach (var animal in enclosure.Animals)
+                {
+                    animal.EnclosureId = null;
+                }
+
                 _context.Enclosures.Remove(enclosure);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Enclosures/AssignAnimals/5
+        public async Task<IActionResult> AssignAnimals(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var enclosure = await _context.Enclosures
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (enclosure == null)
+            {
+                return NotFound();
+            }
+
+            // Get all animals with their enclosure and category loaded
+            var allAnimals = await _context.Animals
+                .Include(a => a.Enclosure)
+                .Include(a => a.Category)
+                .ToListAsync();
+
+            // Project to anonymous type after loading
+            var projected = allAnimals.Select(a => new
+            {
+                a.Id,
+                a.Name,
+                a.Species,
+                Category = a.Category,
+                Enclosure = a.Enclosure,
+                a.SpaceRequirement,
+                a.SecurityRequirement,
+                IsAssigned = a.EnclosureId == id
+            }).ToList();
+
+            ViewData["EnclosureName"] = enclosure.Name;
+            ViewData["EnclosureId"] = id;
+            return View(projected);
+        }
+
+        // POST: Enclosures/AssignAnimals/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignAnimals(int id, List<int> selectedAnimalIds)
+        {
+            var enclosure = await _context.Enclosures
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (enclosure == null)
+            {
+                return NotFound();
+            }
+
+            // Get all animals
+            var allAnimals = await _context.Animals.ToListAsync();
+
+            // Update assignments
+            foreach (var animal in allAnimals)
+            {
+                if (selectedAnimalIds != null && selectedAnimalIds.Contains(animal.Id))
+                {
+                    // Assign to this enclosure
+                    animal.EnclosureId = id;
+                }
+                else if (animal.EnclosureId == id)
+                {
+                    // Remove from this enclosure if it was previously assigned
+                    animal.EnclosureId = null;
+                }
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), new { id = id });
         }
 
         private bool EnclosureExists(int id)

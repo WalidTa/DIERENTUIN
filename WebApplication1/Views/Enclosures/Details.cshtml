@@ -1,48 +1,91 @@
 ﻿@model WebApplication1.Models.Enclosure
+@using WebApplication1.Models
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Enclosure Details</h1>
 
 <div>
-    <h4>Enclosure</h4>
+    <h4>@Model.Name</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SecurityLevel)
+        <dt class="col-sm-3">
+            Security Level
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SecurityLevel)
+        <dd class="col-sm-9">
+            @Model.SecurityLevel
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Size)
+        <dt class="col-sm-3">
+            Size
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Size)
+        <dd class="col-sm-9">
+            @Model.Size
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Habitat)
+        <dt class="col-sm-3">
+            Habitat
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Habitat)
+        <dd class="col-sm-9">
+            @Model.Habitat
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Climate)
+        <dt class="col-sm-3">
+            Climate
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Climate)
+        <dd class="col-sm-9">
+            @Model.Climate
+        </dd>
+        <dt class="col-sm-3">
+            Animals in Enclosure
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Animals.Count
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<h5>Assigned Animals</h5>
+@if (Model.Animals.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Category</th>
+                <th>Size</th>
+                <th>Space Req.</th>
+                <th>Security Req.</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var animal in Model.Animals)
+            {
+                <tr>
+                    <td>@animal.Name</td>
+                    <td>@animal.Species</td>
+                    <td>@(animal.Category != null ? animal.Category.Name : "None")</td>
+                    <td>@animal.Size</td>
+                    <td>@animal.SpaceRequirement</td>
+                    <td>@animal.SecurityRequirement</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">No animals assigned to this enclosure yet.</p>
+}
+
+<div class="mt-3">
+    <a asp-action="AssignAnimals" asp-route-id="@Model.Id" class="btn btn-success">Assign Animals</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
