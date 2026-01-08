@@ -4,6 +4,9 @@
 *.userosscache
 *.sln.docstates
 
+# visual studio temp files
+.vs/
+
 # Local database (LocalDB / SQLite)
 *.mdf
 *.ldf
