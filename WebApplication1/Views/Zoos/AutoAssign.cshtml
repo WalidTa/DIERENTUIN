@@ -1,0 +1,75 @@
+﻿@model int
+
+@{
+    ViewData["Title"] = "Auto Assign Animals";
+}
+
+<h1>Auto Assign Animals to Enclosures</h1>
+
+<div class="alert alert-info">
+    <h4>Choose Assignment Mode</h4>
+    <p>This feature will automatically assign animals to enclosures based on their requirements.</p>
+    <p><strong>There @(Model != 1 ? "are " : "is ") currently @Model unassigned animal@(Model != 1 ? "s" : "") in the zoo.</strong></p>
+</div>
+
+<form asp-action="AutoAssign" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">
+                <input type="radio" name="assignmentMode" value="complete" id="modeComplete" checked class="form-check-input" />
+                <label for="modeComplete" class="form-check-label ms-2">Complete Existing Enclosures</label>
+            </h5>
+            <p class="card-text ms-4">
+                This option will keep all existing enclosures and their current animals.
+                It will try to fit unassigned animals into existing enclosures first, and only create
+                new enclosures when necessary.
+            </p>
+            <ul class="ms-4">
+                <li>Existing enclosures remain unchanged</li>
+                <li>Currently assigned animals stay in their enclosures</li>
+                <li>New animals fill available space in existing enclosures</li>
+                <li>New enclosures created only for remaining animals</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">
+                <input type="radio" name="assignmentMode" value="fresh" id="modeFresh" class="form-check-input" />
+                <label for="modeFresh" class="form-check-label ms-2">Start Fresh (Remove All Enclosures)</label>
+            </h5>
+            <p class="card-text ms-4 text-danger">
+                <strong>Warning:</strong> This option will delete ALL existing enclosures and reassign ALL animals
+                from scratch. This creates a completely new optimal layout.
+            </p>
+            <ul class="ms-4">
+                <li>All existing enclosures will be deleted</li>
+                <li>All current assignments will be removed</li>
+                <li>Fresh enclosures created with optimal grouping</li>
+                <li>All animals reassigned based on compatibility</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">
+            <i class="bi bi-magic"></i> Start Auto Assignment
+        </button>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary btn-lg">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById('modeFresh').addEventListener('change', function() {
+            if (this.checked) {
+                if (!confirm('Are you sure you want to delete all the enclosures and start fresh? This action cannot be undone!')) {
+                    document.getElementById('modeComplete').checked = true;
+                }
+            }
+        });
+    </script>
+}

@@ -296,7 +296,11 @@ namespace WebApplication1.Controllers
             string status;
 
             // Check if the animal has a specific prey
-            if (!string.IsNullOrEmpty(animal.Prey))
+            if (!animal.IsAwake)
+            {
+                status = $"{animal.Name} is asleep right now because the sun is {(animal.ActivityPattern == Animal.Activity.Nocturnal ? "up" : "down")}!";
+            }
+            else if (!string.IsNullOrEmpty(animal.Prey))
             {
                 status = $"{animal.Name} eats its prey:  {animal.Prey}";
             }

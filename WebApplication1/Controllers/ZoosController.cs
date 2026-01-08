@@ -69,9 +69,14 @@ namespace WebApplication1.Controllers
                         status = $"{animal.Name} is active regardless, because it is Cathemeral.";
                         break;
                 }
+
+                _context.Update(animal);
+                await _context.SaveChangesAsync();
+
                 results.Add(status);
             }
 
+            
             ViewData["ActionName"] = "Sunrise";
             return View("ActionResult", results);
         }
@@ -113,112 +118,283 @@ namespace WebApplication1.Controllers
             return View("ActionResult", results);
         }
 
+        // Actions: Feeding Time for the entire Zoo
+        public async Task<IActionResult> FeedingTime()
+        {
+            var animals = await _context.Animals
+                .Include(a => a.Enclosure)
+                .ToListAsync();
 
-        //// GET: Zoos/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+            if (!animals.Any())
+            {
+                ViewData["ActionName"] = "Feeding Time";
+                return View("ActionResult", "No animals in the zoo.");
+            }
 
-        //// POST: Zoos/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Name")] Zoo zoo)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(zoo);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(zoo);
-        //}
+            var results = new List<string>();
+            foreach (var animal in animals)
+            {
+                string status;
+                // Check if the animal has a specific prey
+                if (!animal.IsAwake)
+                {
+                    status = $"{animal.Name} is asleep right now because the sun is {(animal.ActivityPattern == Animal.Activity.Nocturnal ? "up" : "down")}!";
+                }
+                else if (!string.IsNullOrEmpty(animal.Prey) && animal.IsAwake)
+                {
+                    status = $"{animal.Name} eats its prey: {animal.Prey}";
+                }
+                else
+                {
+                    // Default output based on dietary class
+                    status = $"{animal.Name} is fed according to its diet: {animal.DietaryClass}.";
+                }
 
-        //// GET: Zoos/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+                results.Add(status);
+            }
 
-        //    var zoo = await _context.Zoo.FindAsync(id);
-        //    if (zoo == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(zoo);
-        //}
+            ViewData["ActionName"] = "Feeding Time at the Zoo";
+            return View("ActionResult", results);
+        }
 
-        //// POST: Zoos/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Zoo zoo)
-        //{
-        //    if (id != zoo.Id)
-        //    {
-        //        return NotFound();
-        //    }
+        // Actions: Check Constraints for the entire Zoo
+        public async Task<IActionResult> CheckConstraints()
+        {
+            var animals = await _context.Animals
+                .Include(a => a.Enclosure)
+                .ToListAsync();
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(zoo);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!ZooExists(zoo.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(zoo);
-        //}
+            if (!animals.Any())
+            {
+                ViewData["ActionName"] = "Check Constraints";
+                return View("ActionResult", "No animals in the zoo.");
+            }
 
-        //// GET: Zoos/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var results = new List<string>();
+            int totalHappyAnimals = 0;
 
-        //    var zoo = await _context.Zoo
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (zoo == null)
-        //    {
-        //        return NotFound();
-        //    }
+            results.Add("=== Zoo-Wide Animal Constraint Check ===");
+            results.Add("");
 
-        //    return View(zoo);
-        //}
+            foreach (var animal in animals)
+            {
+                results.Add($"--- {animal.Name} ({animal.Species}) ---");
 
-        //// POST: Zoos/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var zoo = await _context.Zoo.FindAsync(id);
-        //    if (zoo != null)
-        //    {
-        //        _context.Zoo.Remove(zoo);
-        //    }
+                if (animal.Enclosure == null)
+                {
+                    results.Add($"{animal.Name} doesn't have an enclosure!");
+                    results.Add("");
+                    continue;
+                }
 
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+                double availableSpace = animal.Enclosure.Size / animal.Enclosure.Animals.Count;
+                bool hasEnoughSpace = availableSpace >= animal.SpaceRequirement;
+                bool meetsSecurityRequirements = (int)animal.SecurityRequirement <= (int)animal.Enclosure.SecurityLevel;
+
+                // Space check
+                results.Add($"Enclosure: {animal.Enclosure.Name}");
+                results.Add($"Space: Requires {animal.SpaceRequirement}, has {availableSpace:F2} - {(hasEnoughSpace ? " Sufficient" : " Insufficient")}");
+
+                // Security check
+                results.Add($"Security: Requires {animal.SecurityRequirement}, enclosure has {animal.Enclosure.SecurityLevel} - {(meetsSecurityRequirements ? " Met" : " Not met")}");
+
+                // Mood determination
+                if (hasEnoughSpace && meetsSecurityRequirements)
+                {
+                    results.Add($"Status: {animal.Name} is happy! All constraints met!");
+                    totalHappyAnimals++;
+                }
+                else if (hasEnoughSpace || meetsSecurityRequirements)
+                {
+                    results.Add($"Status: {animal.Name} is in a sad mood! {(hasEnoughSpace ? "Lacks security" : "Needs more space")}!");
+                }
+                else
+                {
+                    results.Add($"Status: {animal.Name} is very sad! Needs more space and security!");
+                }
+
+                results.Add("");
+            }
+
+            results.Add("=== Overall Zoo Health ===");
+            results.Add($"Total Animals: {animals.Count}");
+            results.Add($"Happy Animals: {totalHappyAnimals}");
+            results.Add($"Unhappy Animals: {animals.Count - totalHappyAnimals}");
+            results.Add($"Happiness Rate: {(animals.Count > 0 ? (totalHappyAnimals * 100.0 / animals.Count).ToString("F1") : "0")}%");
+
+            ViewData["ActionName"] = "Zoo-Wide Constraint Check";
+            return View("ActionResult", results);
+        }
+
+        // GET: Zoos/AutoAssign
+        public async Task<IActionResult> AutoAssign()
+        {
+            try
+            {
+                var unassignedCount = await _context.Animals
+                    .Where(a => a.EnclosureId == null)
+                    .CountAsync();
+
+                return View(unassignedCount);
+            }
+            catch (Exception ex)
+            {
+                // Log the error
+                Console.WriteLine($"Error in AutoAssign GET: {ex.Message}");
+
+                // Return view with 0 count as fallback
+                return View(0);
+            }
+        }
+
+        // POST: Zoos/AutoAssign
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AutoAssign(string assignmentMode)
+        {
+            var results = new List<string>();
+
+            if (assignmentMode == "fresh")
+            {
+                // Remove all existing enclosures
+                var existingEnclosures = await _context.Enclosures.Include(e => e.Animals).ToListAsync();
+                
+                results.Add("=== Starting fresh ===");
+                results.Add($"Removing {existingEnclosures.Count} existing enclosure(s)...");
+                results.Add("");
+
+                foreach (var enclosure in existingEnclosures)
+                {
+                    // Unassign all animals
+                    foreach (var animal in enclosure.Animals)
+                    {
+                        animal.EnclosureId = null;
+                    }
+                    _context.Enclosures.Remove(enclosure);
+                }
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                results.Add("=== Auto assigning ===");
+                results.Add("");
+            }
+
+            // Get all animals that need assignment
+            var unassignedAnimals = await _context.Animals
+                .Include(a => a.Category)
+                .Where(a => a.EnclosureId == null)
+                .ToListAsync();
+
+            if (!unassignedAnimals.Any())
+            {
+                results.Add("All animals are housed.");
+                ViewData["ActionName"] = "Auto Assignment";
+                return View("ActionResult", results);
+            }
+
+            results.Add($"automatically assigning {unassignedAnimals.Count} animal(s).");
+            results.Add("");
+
+            // Group animals by similar requirements
+            var animalGroups = unassignedAnimals
+                .GroupBy(a => new { a.SecurityRequirement, Category = a.Category?.Name ?? "Uncategorized" })
+                .ToList();
+
+            int enclosuresCreated = 0;
+            int animalsAssigned = 0;
+
+            foreach (var group in animalGroups)
+            {
+                var groupAnimals = group.ToList();
+                results.Add($"--- Processing {group.Key.Category} animals (Security: {group.Key.SecurityRequirement}) ---");
+                results.Add($"Animals in group: {groupAnimals.Count}");
+
+                if (assignmentMode == "complete")
+                {
+                    var existingEnclosures = await _context.Enclosures
+                        .Include(e => e.Animals)
+                        .Where(e => (int)e.SecurityLevel >= (int)group.Key.SecurityRequirement)
+                        .ToListAsync();
+
+                    foreach (var enclosure in existingEnclosures)
+                    {
+                        if (!groupAnimals.Any()) break;
+
+                        var remainingAnimals = new List<Animal>(groupAnimals);
+                        foreach (var animal in remainingAnimals)
+                        {
+                            // Check if animal fits
+                            double currentUsedSpace = enclosure.Animals.Sum(a => a.SpaceRequirement);
+                            double availableSpace = enclosure.Size - currentUsedSpace;
+
+                            if (availableSpace >= animal.SpaceRequirement)
+                            {
+                                animal.EnclosureId = enclosure.Id;
+                                groupAnimals.Remove(animal);
+                                animalsAssigned++;
+                                results.Add($" Assigned {animal.Name} to enclosure: {enclosure.Name}");
+                            }
+                        }
+                    }
+                }
+
+                // Create new enclosures for remaining animals
+                while (groupAnimals.Any())
+                {
+                    // Calculate required size for this enclosure
+                    var animalsForThisEnclosure = new List<Animal>();
+                    double totalSpaceNeeded = 0;
+
+                    foreach (var animal in groupAnimals.Take(5).ToList())
+                    {
+                        animalsForThisEnclosure.Add(animal);
+                        totalSpaceNeeded += animal.SpaceRequirement;
+                    }
+
+                    double enclosureSize = totalSpaceNeeded * 1.2;
+
+                    var habitat = Enclosure.HabitatEnum.Grassland; 
+                    var climate = Enclosure.ClimateEnum.Temperate; 
+
+                    // Create new enclosure
+                    var newEnclosure = new Enclosure
+                    {
+                        Name = $"{group.Key.Category} Enclosure {enclosuresCreated + 1}",
+                        SecurityLevel = group.Key.SecurityRequirement,
+                        Size = enclosureSize,
+                        Habitat = habitat,
+                        Climate = climate
+                    };
+
+                    _context.Enclosures.Add(newEnclosure);
+                    await _context.SaveChangesAsync();
+                    enclosuresCreated++;
+
+                    results.Add($"  Created new enclosure: {newEnclosure.Name} (Size: {enclosureSize:F2}, Security: {newEnclosure.SecurityLevel})");
+
+                    // Assign animals to the new enclosure
+                    foreach (var animal in animalsForThisEnclosure)
+                    {
+                        animal.EnclosureId = newEnclosure.Id;
+                        groupAnimals.Remove(animal);
+                        animalsAssigned++;
+                        results.Add($"  Assigned {animal.Name} to {newEnclosure.Name}");
+                    }
+
+                    await _context.SaveChangesAsync();
+                }
+
+                results.Add("");
+            }
+
+            results.Add("=== Auto Assignment Complete ===");
+            results.Add($"Total enclosures created: {enclosuresCreated}");
+            results.Add($"Total animals assigned: {animalsAssigned}");
+
+            ViewData["ActionName"] = "Auto Assignment Complete";
+            return View("ActionResult", results);
+        }
 
         private bool ZooExists(int id)
         {
