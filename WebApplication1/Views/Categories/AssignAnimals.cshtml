@@ -1,0 +1,83 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Assign Animals";
+    var categoryName = ViewData["CategoryName"] as string ?? "";
+    var categoryId = ViewData["CategoryId"];
+}
+
+<h1>Assign Animals to Category</h1>
+
+<h4>@categoryName</h4>
+<hr />
+
+<form asp-action="AssignAnimals" asp-route-id="@categoryId" method="post">
+    @Html.AntiForgeryToken()
+    
+    <div class="form-group mb-3">
+        <p class="text-muted">Select the animals you want to assign to this category. Animals already assigned to this category are pre-selected.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">
+                            <input type="checkbox" id="selectAll" class="form-check-input" />
+                        </th>
+                        <th>Animal Name</th>
+                        <th>Species</th>
+                        <th>Category</th>
+                        <th>Enclosure</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var animal in Model)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" 
+                                       name="selectedAnimalIds" 
+                                       value="@animal.Id" 
+                                       class="form-check-input animal-checkbox"
+                                       @(animal.IsAssigned ? "checked" : "") />
+                            </td>
+                            <td>@animal.Name</td>
+                            <td>@animal.Species</td>
+                            <td>@(animal.Category != null ? animal.Category.Name : "None")</td>
+                            <td>@(animal.Enclosure != null ? animal.Enclosure.Name : "None")</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Assign</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        // Select/Deselect all checkboxes
+        document.getElementById('selectAll').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.animal-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+
+        // Update "Select All" checkbox state based on individual checkboxes
+        document.querySelectorAll('.animal-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const allCheckboxes = document.querySelectorAll('.animal-checkbox');
+                const checkedCheckboxes = document.querySelectorAll('.animal-checkbox:checked');
+                document.getElementById('selectAll').checked = allCheckboxes.length === checkedCheckboxes.length;
+            });
+        });
+    </script>
+}

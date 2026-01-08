@@ -1,24 +1,63 @@
 ﻿@model WebApplication1.Models.Category
+@using WebApplication1.Models
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Category Details</h1>
 
 <div>
-    <h4>Category</h4>
+    <h4>@Model.Name</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Animals in Category
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Animals.Count
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<h5>Assigned Animals</h5>
+@if (Model.Animals.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Size</th>
+                <th>Enclosure</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var animal in Model.Animals)
+            {
+                <tr>
+                    <td>@animal.Name</td>
+                    <td>@animal.Species</td>
+                    <td>@animal.Size</td>
+                    <td>@(animal.Enclosure != null ? animal.Enclosure.Name : "None")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">No animals assigned to this category yet.</p>
+}
+
+<div class="mt-3">
+    <a asp-action="AssignAnimals" asp-route-id="@Model.Id" class="btn btn-success">Assign Animals</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

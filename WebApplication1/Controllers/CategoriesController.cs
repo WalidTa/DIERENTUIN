@@ -20,9 +20,30 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchTerm)
         {
-            return View(await _context.Categories.ToListAsync());
+            ViewData["SearchTerm"] = searchTerm;
+
+            var categories = await _context.Categories
+                .Include(c => c.Animals)
+                .ToListAsync();
+
+            var projected = categories.Select(c => new
+            {
+                c.Id,
+                c.Name,
+                AnimalCount = c.Animals.Count
+            }).ToList();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var term = searchTerm.Trim();
+                projected = projected
+                    .Where(c => c.Name.Contains(term, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            return View(projected);
         }
 
         // GET: Categories/Details/5
@@ -34,7 +55,10 @@ namespace WebApplication1.Controllers
             }
 
             var category = await _context.Categories
+                .Include(c => c.Animals)
+                    .ThenInclude(a => a.Enclosure)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (category == null)
             {
                 return NotFound();
@@ -125,7 +149,9 @@ namespace WebApplication1.Controllers
             }
 
             var category = await _context.Categories
+                .Include(c => c.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (category == null)
             {
                 return NotFound();
@@ -139,14 +165,97 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Categories
+                .Include(c => c.Animals)
+                .FirstOrDefaultAsync(c => c.Id == id);
+            
             if (category != null)
             {
+                // First unassign all animals from this category
+                foreach (var animal in category.Animals)
+                {
+                    animal.CategoryId = null;
+                }
+
                 _context.Categories.Remove(category);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Categories/AssignAnimals/5
+        public async Task<IActionResult> AssignAnimals(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var category = await _context.Categories
+                .Include(c => c.Animals)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            // Get all animals with their current category status
+            var allAnimals = await _context.Animals
+                .Include(a => a.Enclosure)
+                .Include(a => a.Category)
+                .ToListAsync();
+
+            var projected = allAnimals.Select(a => new
+            {
+                a.Id,
+                a.Name,
+                a.Species,
+                a.Enclosure,
+                a.Category,
+                IsAssigned = a.CategoryId == id
+            }).ToList();
+
+            ViewData["CategoryName"] = category.Name;
+            ViewData["CategoryId"] = id;
+            return View(projected);
+        }
+
+        // POST: Categories/AssignAnimals/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignAnimals(int id, List<int> selectedAnimalIds)
+        {
+            var category = await _context.Categories
+                .Include(c => c.Animals)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            // Get all animals
+            var allAnimals = await _context.Animals.ToListAsync();
+
+            // Update assignments
+            foreach (var animal in allAnimals)
+            {
+                if (selectedAnimalIds != null && selectedAnimalIds.Contains(animal.Id))
+                {
+                    // Assign to this category
+                    animal.CategoryId = id;
+                }
+                else if (animal.CategoryId == id)
+                {
+                    // Remove from this category if it was previously assigned
+                    animal.CategoryId = null;
+                }
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), new { id = id });
         }
 
         private bool CategoryExists(int id)
