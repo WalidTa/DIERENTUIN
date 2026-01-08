@@ -5,62 +5,110 @@
     var searchTerm = ViewData["SearchTerm"] as string ?? "";
 }
 
-<h1>Animals</h1>
+<div class="mb-4">
+    <h1>🦁 Animals</h1>
+    <p class="text-muted">Manage all animals in your zoo</p>
+</div>
 
-<form asp-action="Index" method="get" class="mb-3">
-    <div class="input-group">
-        <input type="text" name="searchTerm" value="@searchTerm" class="form-control" placeholder="Search by name, species, category, enclosure, prey, or status..." />
-        <button type="submit" class="btn btn-primary">Search</button>
-        <a asp-action="Index" class="btn btn-secondary">Clear</a>
+<div class="card mb-3 bg-transparent border ">
+    <div class="card-body bg-transparent">
+        <form asp-action="Index" method="get">
+            <div class="input-group">
+                <input type="text" name="searchTerm" value="@searchTerm" class="form-control bg-transparent" placeholder="Search animals..." />
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a asp-action="Index" class="btn btn-secondary">Clear</a>
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-success">+ Create New Animal</a>
+</div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Species</th>
-            <th>Category</th>
-            <th>Enclosure</th>
-            <th>Size</th>
-            <th>Diet</th>
-            <th>Activity</th>
-            <th>Prey</th>
-            <th>Space Req.</th>
-            <th>Security Req.</th>
-            <th>Status</th>
-            <th style="width: 260px;">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model)
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Category</th>
+                <th>Enclosure</th>
+                <th>Size</th>
+                <th>Diet</th>
+                <th>Activity</th>
+                <th>Prey</th>
+                <th>Space</th>
+                <th>Security</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model)
+    {
+            <tr>
+                <td><strong>@item.Name</strong></td>
+                <td>@item.Species</td>
+                <td><span class="badge bg-secondary">@item.CategoryName</span></td>
+                <td>
+                    @if (item.EnclosureName != "No Enclosure")
+                    {
+                        <span class="badge bg-secondary">@item.EnclosureName</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">Unassigned</span>
+                    }
+                </td>
+                <td>@item.Size</td>
+                <td>@item.DietaryClass</td>
+                <td>@item.ActivityPattern</td>
+                <td>@(item.Prey ?? "-")</td>
+                <td>@item.SpaceRequirement</td>
+                <td>@item.SecurityRequirement</td>
+                <td>
+                    @if (item.Status == "Awake")
+                    {
+                        <span class="badge bg-success">Awake</span>
+                    }
+                    else if (item.Status == "Sleeping")
+                    {
+                        <span class="badge bg-primary">Sleeping</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">@item.Status</span>
+                    }
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton@(item.Id)" data-bs-toggle="dropdown" aria-expanded="false">
+                            ⋮
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton@(item.Id)">
+                            <li><h6 class="dropdown-header">Manage</h6></li>
+                            <li><a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">📋 Details</a></li>
+                            <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">✏️ Edit</a></li>
+                            <li><a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">🗑️ Delete</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Actions</h6></li>
+                            <li><a class="dropdown-item" asp-action="Sunrise" asp-route-id="@item.Id">☀️ Sunrise</a></li>
+                            <li><a class="dropdown-item" asp-action="Sunset" asp-route-id="@item.Id">🌙 Sunset</a></li>
+                            <li><a class="dropdown-item" asp-action="FeedingTime" asp-route-id="@item.Id">🍖 Feeding Time</a></li>
+                            <li><a class="dropdown-item" asp-action="CheckConstraints" asp-route-id="@item.Id">✅ Check Constraints</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+
+@if (!Model.Any())
 {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Species</td>
-            <td>@item.CategoryName</td>
-            <td>@item.EnclosureName</td>
-            <td>@item.Size</td>
-            <td>@item.DietaryClass</td>
-            <td>@item.ActivityPattern</td>
-            <td>@item.Prey</td>
-            <td>@item.SpaceRequirement</td>
-            <td>@item.SecurityRequirement</td>
-            <td>@item.Status</td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Details</a>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">Edit</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Delete</a>
-                <a asp-action="Sunrise" asp-route-id="@item.Id" class="btn btn-outline-success btn-sm">Sunrise</a>
-                <a asp-action="Sunset" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Sunset</a>
-                <a asp-action="FeedingTime" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm">Feeding</a>
-                <a asp-action="CheckConstraints" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Constraints</a>
-            </td>
-        </tr>
+    <div class="alert alert-info">
+        <strong>No animals found.</strong> Try a different search or create a new animal.
+    </div>
 }
-    </tbody>
-</table>

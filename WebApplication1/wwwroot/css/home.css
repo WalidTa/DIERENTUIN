@@ -1,0 +1,188 @@
+:root {
+    --zoo-green: #02341D;
+    --zoo-orange: #F7671A;
+    --zoo-light-green: #034a29;
+    --zoo-dark-green: #011f13;
+    --zoo-bg: #f5f5f0;
+}
+
+/* Hero Section */
+.hero-section {
+    color: white;
+    padding: 4rem 0;
+    margin: -1rem -15px 3rem -15px;
+}
+
+.hero-section h1 {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-section .lead {
+    opacity: 0.95;
+    font-size: 1.1rem;
+}
+
+/* Section Titles */
+.section-title {
+    color: var(--zoo-green);
+    font-weight: bold;
+    font-size: 2rem;
+    border-bottom: 3px solid var(--zoo-orange);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+/* Management Cards */
+.management-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.management-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2) !important;
+}
+
+.card-icon-container {
+    background: linear-gradient(135deg, var(--zoo-green) 0%, var(--zoo-light-green) 100%);
+    padding: 2rem;
+    min-height: 200px;
+}
+
+.card-icon {
+    font-size: 5rem;
+    color: white;
+}
+
+/* Card Image Styling */
+.card-image {
+    max-width: 150px;
+    max-height: 150px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.management-card:hover .card-image {
+    transform: scale(1.1);
+}
+
+.management-card .card-title {
+    color: var(--zoo-green);
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.management-card .card-text {
+    color: #666;
+}
+
+/* Zoo Button */
+.btn-zoo {
+    background: var(--zoo-orange);
+    color: white !important;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.management-card:hover .btn-zoo {
+    background: #d65815;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(247, 103, 26, 0.4);
+}
+
+/* Action Cards */
+.action-card {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--zoo-green);
+    cursor: pointer;
+}
+
+.action-card:hover {
+    background: var(--zoo-green);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
+}
+
+.action-card:hover .action-icon {
+    color: var(--zoo-orange);
+    transform: scale(1.2);
+}
+
+.action-card:hover .action-title {
+    color: white;
+}
+
+.action-icon {
+    font-size: 3rem;
+    color: var(--zoo-orange);
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Action Icon Image Styling */
+.action-icon-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.action-title {
+    color: var(--zoo-green);
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Special Action Card */
+.special-action {
+    background: linear-gradient(135deg, var(--zoo-orange) 0%, #ff8533 100%);
+    border: none;
+}
+
+.special-action .action-icon,
+.special-action .action-title {
+    color: white;
+}
+
+.special-action:hover {
+    background: linear-gradient(135deg, #d65815 0%, var(--zoo-orange) 100%);
+}
+
+.special-action:hover .action-icon {
+    color: var(--zoo-green);
+}
+
+/* Responsive grid for 5 columns */
+@media (min-width: 992px) {
+    .col-lg-2-4 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
+
+@media (max-width: 991px) {
+    .hero-section {
+        padding: 3rem 0;
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .action-icon-img {
+        width: 60px;
+        height: 60px;
+    }
+}

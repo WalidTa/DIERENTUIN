@@ -2,52 +2,126 @@
     ViewData["Title"] = "Zoo Management System";
 }
 
-<h1>VIRTUELE DIERENTUIN</h1>
+<link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 
-<p>
-    Welcome to your own virtual zoo! Manage your animals, categories, and enclosures!
-    You can also control the entire zoo by controlling the sunrise and sunset, feeding the animals,
-    or checking if all the animals are doing well!
-</p>
+<div class="hero-section">
+    <div class="container">
+        <h1 class="display-3 fw-bold">VIRTUELE DIERENTUIN</h1>
+        <p class="lead">
+            Welcome to your own virtual zoo! Manage your animals, categories, and enclosures!
+            You can also control the entire zoo by controlling the sunrise and sunset, feeding the animals,
+            or checking if all the animals are doing well!
+        </p>
+    </div>
+</div>
 
-<hr />
+<div class="container">
+    <h2 class="mb-4">Management</h2>
 
-<h2>Management</h2>
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <a asp-controller="Animals" asp-action="Index" class="text-decoration-none">
+                <div class="card management-card h-100 shadow-sm">
+                    <div class="card-icon-container d-flex align-items-center justify-content-center">
+                        <img src="~/images/animals.png" alt="Animals" class="card-image" />
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="card-title">Animals</h3>
+                        <p class="card-text flex-grow-1">View, add, edit, and manage all animals in your zoo. Monitor their health, diet, and happiness.</p>
+                        <span class="btn btn-zoo">Manage Animals</span>
+                    </div>
+                </div>
+            </a>
+        </div>
 
-<ul>
-    <li>
-        <a asp-controller="Animals" asp-action="Index">Manage Animals</a>
-    </li>
-    <li>
-        <a asp-controller="Categories" asp-action="Index">Manage Categories</a>
-    </li>
-    <li>
-        <a asp-controller="Enclosures" asp-action="Index">Manage Enclosures</a>
-    </li>
-</ul>
+        <div class="col-md-4">
+            <a asp-controller="Categories" asp-action="Index" class="text-decoration-none">
+                <div class="card management-card h-100 shadow-sm">
+                    <div class="card-icon-container d-flex align-items-center justify-content-center">
+                        <img src="~/images/category.png" alt="Categories" class="card-image" />
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="card-title">Categories</h3>
+                        <p class="card-text flex-grow-1">Organize your animals into categories. Group by species, habitat, or any classification you prefer.</p>
+                        <span class="btn btn-zoo">Manage Categories</span>
+                    </div>
+                </div>
+            </a>
+        </div>
 
-<hr />
+        <div class="col-md-4">
+            <a asp-controller="Enclosures" asp-action="Index" class="text-decoration-none">
+                <div class="card management-card h-100 shadow-sm">
+                    <div class="card-icon-container d-flex align-items-center justify-content-center">
+                        <img src="~/images/enclosure.png" alt="Enclosures" class="card-image" />
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="card-title">Enclosures</h3>
+                        <p class="card-text flex-grow-1">Create and manage enclosures. Ensure proper size, security, and environment for your animals.</p>
+                        <span class="btn btn-zoo">Manage Enclosures</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
 
-<h2>Zoo Actions</h2>
+    <h2 class="mb-3">Zoo Actions</h2>
+    <p class="mb-4">These actions apply to the entire zoo!</p>
 
-<p>
-    These actions apply to the entire zoo!
-</p>
+    <div class="row g-3">
+        <div class="col-md-4 col-lg-2-4">
+            <a asp-controller="Zoos" asp-action="Sunrise" class="text-decoration-none">
+                <div class="card action-card shadow-sm">
+                    <div class="card-body text-center">
+                        <img src="~/images/sun.jpg" alt="Sunrise" class="action-icon-img" />
+                        <h5 class="action-title mb-0">Sunrise</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
 
-<ul>
-    <li>
-        <a asp-controller="Zoos" asp-action="Sunrise">Sunrise</a>
-    </li>
-    <li>
-        <a asp-controller="Zoos" asp-action="Sunset">Sunset</a>
-    </li>
-    <li>
-        <a asp-controller="Zoos" asp-action="FeedingTime">Feeding Time</a>
-    </li>
-    <li>
-        <a asp-controller="Zoos" asp-action="CheckConstraints">Check Constraints</a>
-    </li>
-    <li>
-        <a asp-controller="Zoos" asp-action="AutoAssign">Auto Assign Enclosures</a>
-    </li>
-</ul>
+        <div class="col-md-4 col-lg-2-4">
+            <a asp-controller="Zoos" asp-action="Sunset" class="text-decoration-none">
+                <div class="card action-card shadow-sm">
+                    <div class="card-body text-center">
+                        <img src="~/images/moon.png" alt="Sunset" class="action-icon-img" />
+                        <h5 class="action-title mb-0">Sunset</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-lg-2-4">
+            <a asp-controller="Zoos" asp-action="FeedingTime" class="text-decoration-none">
+                <div class="card action-card shadow-sm">
+                    <div class="card-body text-center">
+                        <img src="~/images/food.png" alt="Feeding Time" class="action-icon-img" />
+                        <h5 class="action-title mb-0">Feeding Time</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-lg-2-4">
+            <a asp-controller="Zoos" asp-action="CheckConstraints" class="text-decoration-none">
+                <div class="card action-card shadow-sm">
+                    <div class="card-body text-center">
+                        <img src="~/images/check.png" alt="Check Constraints" class="action-icon-img" />
+                        <h5 class="action-title mb-0">Check Constraints</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-lg-2-4">
+            <a asp-controller="Zoos" asp-action="AutoAssign" class="text-decoration-none">
+                <div class="card action-card special-action shadow">
+                    <div class="card-body text-center">
+                        <img src="~/images/Assign.png" alt="Auto Assign" class="action-icon-img special-icon" />
+                        <h5 class="action-title mb-0">Auto Assign</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,3 +1,10 @@
+:root {
+    --zoo-green: #02341D;
+    --zoo-orange: #F7671A;
+    --zoo-light-green: #034a29;
+    --zoo-dark-green: #011f13;
+}
+
 html {
   font-size: 14px;
 }
@@ -18,5 +25,15 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background: linear-gradient(135deg, var(--zoo-green) 0%, var(--zoo-light-green) 100%);
+    color: var(--zoo-orange);
+}
+
+h1, h2, h3, h4, h5, h6, p, span, div, label, td, th, li, a {
+    color: var(--zoo-orange);
+}
+
+.card {
+    background-color: lightgray;
 }

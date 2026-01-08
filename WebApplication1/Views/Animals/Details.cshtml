@@ -1,98 +1,81 @@
 ﻿@model WebApplication1.Models.Animal
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Animal Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Animal</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Species)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Species)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Size)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Size)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DietaryClass)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DietaryClass)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ActivityPattern)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ActivityPattern)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsAwake)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsAwake)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Prey)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Prey)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SpaceRequirement)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SpaceRequirement)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SecurityRequirement)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SecurityRequirement)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @if (Model?.Category != null)
-            {
-                @Html.DisplayFor(model => model.Category.Name)
-            }
-            else
-            {
-                <span>No category assigned</span>
-            }
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Enclosure)
-        </dt>
-        <dd class = "col-sm-10">
-            @if (Model?.Enclosure != null)
-            {
-                @Html.DisplayFor(model => model.Enclosure.Name)
-            }
-            else
-            {
-                <span>No enclosure assigned</span>
-            }
-        </dd>
-    </dl>
+<div class="mb-4">
+    <h1>@Model.Name</h1>
+    <p class="text-muted">@Model.Species</p>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9"><strong>@Model.Name</strong></dd>
+
+            <dt class="col-sm-3">Species</dt>
+            <dd class="col-sm-9">@Model.Species</dd>
+
+            <dt class="col-sm-3">Category</dt>
+            <dd class="col-sm-9">
+                @if (Model?.Category != null)
+                {
+                    <span class="badge bg-secondary">@Model.Category.Name</span>
+                }
+                else
+                {
+                    <span class="text-muted">No category</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Enclosure</dt>
+            <dd class="col-sm-9">
+                @if (Model?.Enclosure != null)
+                {
+                    <span class="badge bg-info">@Model.Enclosure.Name</span>
+                }
+                else
+                {
+                    <span class="text-muted">No enclosure</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Size</dt>
+            <dd class="col-sm-9">@Model.Size</dd>
+
+            <dt class="col-sm-3">Dietary Class</dt>
+            <dd class="col-sm-9">@Model.DietaryClass</dd>
+
+            <dt class="col-sm-3">Prey</dt>
+            <dd class="col-sm-9">@(Model.Prey ?? "-")</dd>
+
+            <dt class="col-sm-3">Activity Pattern</dt>
+            <dd class="col-sm-9">@Model.ActivityPattern</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">
+                @if (Model.IsAwake)
+                {
+                    <span class="badge bg-success">Awake</span>
+                }
+                else
+                {
+                    <span class="badge bg-primary">Sleeping</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Space Requirement</dt>
+            <dd class="col-sm-9">@Model.SpaceRequirement</dd>
+
+            <dt class="col-sm-3">Security Requirement</dt>
+            <dd class="col-sm-9">@Model.SecurityRequirement</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
