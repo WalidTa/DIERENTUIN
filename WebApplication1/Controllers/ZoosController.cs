@@ -54,34 +54,25 @@ namespace WebApplication1.Controllers
             foreach (var animal in animals)
             {
                 string status;
-
                 switch (animal.ActivityPattern)
                 {
                     case Animal.Activity.Diurnal:
-                        // Diurnal dieren zijn overdag wakker
                         animal.IsAwake = true;
-                        status = $"{animal.Name} wakes up.";
+                        status = $"{animal.Name} wakes up!";
                         break;
-
                     case Animal.Activity.Nocturnal:
-                        // Nocturnal dieren slapen overdag
                         animal.IsAwake = false;
                         status = $"{animal.Name} goes to sleep.";
                         break;
-
                     default:
-                        // Cathemeral of andere types zijn altijd actief
                         animal.IsAwake = true;
-                        status = $"{animal.Name} remains active.";
+                        status = $"{animal.Name} is active regardless, because it is Cathemeral.";
                         break;
                 }
-
-
                 results.Add(status);
             }
 
             ViewData["ActionName"] = "Sunrise";
-            ViewData["OriginController"] = "Home";
             return View("ActionResult", results);
         }
 
@@ -96,12 +87,11 @@ namespace WebApplication1.Controllers
             foreach (var animal in animals)
             {
                 string status;
-
                 switch (animal.ActivityPattern)
                 {
                     case Animal.Activity.Nocturnal:
                         animal.IsAwake = true;
-                        status = $"{animal.Name} wakes up.";
+                        status = $"{animal.Name} wakes up!";
                         break;
                     case Animal.Activity.Diurnal:
                         animal.IsAwake = false;
@@ -109,10 +99,9 @@ namespace WebApplication1.Controllers
                         break;
                     default:
                         animal.IsAwake = true;
-                        status = $"{animal.Name} remains active.";
+                        status = $"{animal.Name} is active regardless, because it is Cathemeral.";
                         break;
                 }
-
                 _context.Update(animal);
                 await _context.SaveChangesAsync();
 
@@ -121,7 +110,6 @@ namespace WebApplication1.Controllers
             }
 
             ViewData["ActionName"] = "Sunset";
-            ViewData["OriginController"] = "Home";
             return View("ActionResult", results);
         }
 

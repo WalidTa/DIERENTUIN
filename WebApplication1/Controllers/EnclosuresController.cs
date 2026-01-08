@@ -270,6 +270,222 @@ namespace WebApplication1.Controllers
             return RedirectToAction(nameof(Details), new { id = id });
         }
 
+        // Actions: Sunrise for Enclosure
+        public async Task<IActionResult> Sunrise(int id)
+        {
+            var enclosure = await _context.Enclosures
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (enclosure == null)
+                return NotFound("Enclosure not found.");
+
+            if (!enclosure.Animals.Any())
+            {
+                ViewData["ActionName"] = "Sunrise";
+                ViewData["EnclosureName"] = enclosure.Name;
+                ViewData["OriginController"] = "Enclosures";
+                return View("ActionResult", "No animals in this enclosure.");
+            }
+
+            var results = new List<string>();
+
+            foreach (var animal in enclosure.Animals)
+            {
+                string status;
+                switch (animal.ActivityPattern)
+                {
+                    case Animal.Activity.Diurnal:
+                        animal.IsAwake = true;
+                        status = $"{animal.Name} wakes up!";
+                        break;
+                    case Animal.Activity.Nocturnal:
+                        animal.IsAwake = false;
+                        status = $"{animal.Name} goes to sleep.";
+                        break;
+                    default:
+                        animal.IsAwake = true;
+                        status = $"{animal.Name} is active regardless, because it is Cathemeral.";
+                        break;
+                }
+                results.Add(status);
+                _context.Update(animal);
+            }
+
+            await _context.SaveChangesAsync();
+
+            ViewData["ActionName"] = $"Sunrise in {enclosure.Name}";
+            ViewData["EnclosureName"] = enclosure.Name;
+            ViewData["OriginController"] = "Enclosures";
+            return View("ActionResult", results);
+        }
+
+        // Actions: Sunset for Enclosure
+        public async Task<IActionResult> Sunset(int id)
+        {
+            var enclosure = await _context.Enclosures
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (enclosure == null)
+                return NotFound("Enclosure not found.");
+
+            if (!enclosure.Animals.Any())
+            {
+                ViewData["ActionName"] = "Sunset";
+                ViewData["EnclosureName"] = enclosure.Name;
+                ViewData["OriginController"] = "Enclosures";
+                return View("ActionResult", "No animals in this enclosure.");
+            }
+
+            var results = new List<string>();
+
+            foreach (var animal in enclosure.Animals)
+            {
+                string status;
+                switch (animal.ActivityPattern)
+                {
+                    case Animal.Activity.Nocturnal:
+                        animal.IsAwake = true;
+                        status = $"{animal.Name} wakes up!";
+                        break;
+                    case Animal.Activity.Diurnal:
+                        animal.IsAwake = false;
+                        status = $"{animal.Name} goes to sleep.";
+                        break;
+                    default:
+                        animal.IsAwake = true;
+                        status = $"{animal.Name} is active regardless, because it is Cathemeral.";
+                        break;
+                }
+                results.Add(status);
+                _context.Update(animal);
+            }
+
+            await _context.SaveChangesAsync();
+
+            ViewData["ActionName"] = $"Sunset in {enclosure.Name}";
+            ViewData["EnclosureName"] = enclosure.Name;
+            ViewData["OriginController"] = "Enclosures";
+            return View("ActionResult", results);
+        }
+
+        // Actions: Feeding Time for Enclosure
+        public async Task<IActionResult> FeedingTime(int id)
+        {
+            var enclosure = await _context.Enclosures
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (enclosure == null)
+                return NotFound("Enclosure not found.");
+
+            if (!enclosure.Animals.Any())
+            {
+                ViewData["ActionName"] = "Feeding Time";
+                ViewData["EnclosureName"] = enclosure.Name;
+                ViewData["OriginController"] = "Enclosures";
+                return View("ActionResult", "No animals in this enclosure.");
+            }
+
+            var results = new List<string>();
+
+            foreach (var animal in enclosure.Animals)
+            {
+                string status;
+
+                // Check if the animal has a specific prey
+                if (!string.IsNullOrEmpty(animal.Prey))
+                {
+                    status = $"{animal.Name} eats its prey: {animal.Prey}";
+                }
+                else
+                {
+                    // Default output based on dietary class
+                    status = $"{animal.Name} is fed according to its diet: {animal.DietaryClass}.";
+                }
+
+                results.Add(status);
+            }
+
+            ViewData["ActionName"] = $"Feeding Time in {enclosure.Name}";
+            ViewData["EnclosureName"] = enclosure.Name;
+            ViewData["OriginController"] = "Enclosures";
+            return View("ActionResult", results);
+        }
+
+        // Actions: Check Constraints for Enclosure
+        public async Task<IActionResult> CheckConstraints(int id)
+        {
+            var enclosure = await _context.Enclosures
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            if (enclosure == null)
+                return NotFound("Enclosure not found.");
+
+            if (!enclosure.Animals.Any())
+            {
+                ViewData["ActionName"] = "Check Constraints";
+                ViewData["EnclosureName"] = enclosure.Name;
+                ViewData["OriginController"] = "Enclosures";
+                return View("ActionResult", "No animals in this enclosure.");
+            }
+
+            var results = new List<string>();
+
+            // Add enclosure summary
+            results.Add($"=== {enclosure.Name} contraint check ===");
+            results.Add($"Total Size: {enclosure.Size} | Security Level: {enclosure.SecurityLevel}");
+            results.Add($"Number of Animals: {enclosure.Animals.Count}");
+            results.Add("");
+
+            foreach (var animal in enclosure.Animals)
+            {
+                results.Add($"--- {animal.Name} ({animal.Species}) ---");
+
+                double availableSpace = enclosure.Size / enclosure.Animals.Count;
+                bool hasEnoughSpace = availableSpace >= animal.SpaceRequirement;
+                bool meetsSecurityRequirements = (int)animal.SecurityRequirement <= (int)enclosure.SecurityLevel;
+
+                // Space check
+                results.Add($"Space: Requires {animal.SpaceRequirement}, has {availableSpace:F2} - {(hasEnoughSpace ? " Sufficient" : " Insufficient")}");
+
+                // Security check
+                results.Add($"Security: Requires {animal.SecurityRequirement}, enclosure has {enclosure.SecurityLevel} - {(meetsSecurityRequirements ? " Met" : " Not met")}");
+
+                // Mood determination
+                if (hasEnoughSpace && meetsSecurityRequirements)
+                {
+                    results.Add($"Status: {animal.Name} is happy! All constraints met!");
+                }
+                else if (hasEnoughSpace || meetsSecurityRequirements)
+                {
+                    results.Add($"Status: {animal.Name} is in a sad mood! {(hasEnoughSpace ? "Lacks security" : "Needs more space")}");
+                }
+                else
+                {
+                    results.Add($"Status: {animal.Name} is very sad! Needs more space and security!");
+                }
+
+                results.Add("");
+            }
+
+            var happyAnimals = enclosure.Animals.Count(a =>
+            {
+                double space = enclosure.Size / enclosure.Animals.Count;
+                return space >= a.SpaceRequirement && (int)a.SecurityRequirement <= (int)enclosure.SecurityLevel;
+            });
+
+            results.Add($"=== Overall Health ===");
+            results.Add($"{happyAnimals} out of {enclosure.Animals.Count} animals are happy");
+
+            ViewData["ActionName"] = $"Check Constraints in {enclosure.Name}";
+            ViewData["EnclosureName"] = enclosure.Name;
+            ViewData["OriginController"] = "Enclosures";
+            return View("ActionResult", results);
+        }
+
         private bool EnclosureExists(int id)
         {
             return _context.Enclosures.Any(e => e.Id == id);

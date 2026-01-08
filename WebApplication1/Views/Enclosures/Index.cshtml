@@ -28,7 +28,7 @@
             <th>Habitat</th>
             <th>Climate</th>
             <th>Animal Count</th>
-            <th>Actions</th>
+            <th style="width: 450px;">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -45,7 +45,11 @@
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Details</a>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">Edit</a>
                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Delete</a>
-                <a asp-action="AssignAnimals" asp-route-id="@item.Id" class="btn btn-outline-success btn-sm">Assign Animals</a>
+                <a asp-action="AssignAnimals" asp-route-id="@item.Id" class="btn btn-outline-success btn-sm">Assign animals</a>
+                <a asp-action="Sunrise" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Sunrise</a>
+                <a asp-action="Sunset" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm">Sunset</a>
+                <a asp-action="FeedingTime" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Feed</a>
+                <a asp-action="CheckConstraints" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Check constraints</a>
             </td>
         </tr>
 }

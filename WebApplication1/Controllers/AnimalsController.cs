@@ -229,16 +229,16 @@ namespace WebApplication1.Controllers
             switch (animal.ActivityPattern)
             {
                 case Animal.Activity.Diurnal:
-                    status = $"{animal.Name} wakes up!";
                     animal.IsAwake = true;
+                    status = $"{animal.Name} wakes up!";    
                     break;
                 case Animal.Activity.Nocturnal:
-                    status = $"{animal.Name} goes to sleep.";
                     animal.IsAwake = false;
+                    status = $"{animal.Name} goes to sleep.";
                     break;
                 default:
-                    status = $"{animal.Name} is active regardless, because its are Cathemeral";
                     animal.IsAwake = true;
+                    status = $"{animal.Name} is active regardless, because it is Cathemeral.";
                     break;
             }
 
@@ -263,16 +263,16 @@ namespace WebApplication1.Controllers
             switch (animal.ActivityPattern)
             {
                 case Animal.Activity.Nocturnal:
-                    status = $"{animal.Name} wakes up!";
                     animal.IsAwake = true;
+                    status = $"{animal.Name} wakes up!";
                     break;
                 case Animal.Activity.Diurnal:
-                    status = $"{animal.Name} goes to sleep.";
                     animal.IsAwake = false;
+                    status = $"{animal.Name} goes to sleep.";
                     break;
                 default:
-                    status = $"{animal.Name} is active regardless, because its are Cathemeral";
                     animal.IsAwake = true;
+                    status = $"{animal.Name} is active regardless, because it is Cathemeral.";
                     break;
             }
 
