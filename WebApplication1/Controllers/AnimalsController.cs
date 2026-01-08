@@ -20,10 +20,53 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Animals
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchTerm)
         {
-            var zooDbContext = _context.Animals.Include(a => a.Category).Include(a => a.Enclosure);
-            return View(await zooDbContext.ToListAsync());
+            ViewData["SearchTerm"] = searchTerm;
+
+            var animals = await _context.Animals
+                .Include(a => a.Category)
+                .Include(a => a.Enclosure)
+                .ToListAsync();
+
+            var projected = animals.Select(a =>
+            {
+                var status = a.Enclosure == null
+                    ? "Unassigned"
+                    : a.IsAwake ? "Awake" : "Sleeping";
+
+                return new
+                {
+                    a.Id,
+                    a.Name,
+                    a.Species,
+                    CategoryName = a.Category?.Name ?? "No Category",
+                    EnclosureName = a.Enclosure?.Name ?? "No Enclosure",
+                    Size = a.Size,
+                    DietaryClass = a.DietaryClass,
+                    ActivityPattern = a.ActivityPattern,
+                    a.Prey,
+                    a.SpaceRequirement,
+                    a.SecurityRequirement,
+                    Status = status
+                };
+            }).ToList();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var term = searchTerm.Trim();
+                projected = projected
+                    .Where(a =>
+                        (a.Name?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (a.Species?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (a.CategoryName?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (a.EnclosureName?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (a.Prey?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        a.Status.Contains(term, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            return View(projected);
         }
 
         // GET: Animals/Details/5
@@ -194,7 +237,7 @@ namespace WebApplication1.Controllers
                     animal.IsAwake = false;
                     break;
                 default:
-                    status = $"{animal.Name} is active regardless";
+                    status = $"{animal.Name} is active regardless, because its are Cathemeral";
                     animal.IsAwake = true;
                     break;
             }
@@ -204,6 +247,7 @@ namespace WebApplication1.Controllers
 
             ViewData["ActionName"] = "Sunrise";
             ViewData["AnimalName"] = animal.Name;
+            ViewData["OriginController"] = "Animals";
             return View("ActionResult", status);
         }
 
@@ -227,7 +271,7 @@ namespace WebApplication1.Controllers
                     animal.IsAwake = false;
                     break;
                 default:
-                    status = $"{animal.Name} is active regardless";
+                    status = $"{animal.Name} is active regardless, because its are Cathemeral";
                     animal.IsAwake = true;
                     break;
             }
@@ -237,6 +281,7 @@ namespace WebApplication1.Controllers
 
             ViewData["ActionName"] = "Sunset";
             ViewData["AnimalName"] = animal.Name;
+            ViewData["OriginController"] = "Animals";
             return View("ActionResult", status);
         }
 
@@ -263,6 +308,7 @@ namespace WebApplication1.Controllers
 
             ViewData["ActionName"] = "Feeding Time";
             ViewData["AnimalName"] = animal.Name;
+            ViewData["OriginController"] = "Animals";
             return View("ActionResult", status);
         }
 
@@ -323,7 +369,8 @@ namespace WebApplication1.Controllers
 
             ViewData["ActionName"] = "Check Constraints";
             ViewData["AnimalName"] = animal.Name;
-            return View("ActionResultList", messages);
+            ViewData["OriginController"] = "Animals";
+            return View("ActionResult", messages);
         }
     }
 }

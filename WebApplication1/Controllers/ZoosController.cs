@@ -81,6 +81,7 @@ namespace WebApplication1.Controllers
             }
 
             ViewData["ActionName"] = "Sunrise";
+            ViewData["OriginController"] = "Home";
             return View("ActionResult", results);
         }
 
@@ -120,6 +121,7 @@ namespace WebApplication1.Controllers
             }
 
             ViewData["ActionName"] = "Sunset";
+            ViewData["OriginController"] = "Home";
             return View("ActionResult", results);
         }
 

@@ -1,4 +1,5 @@
 ﻿@model WebApplication1.Models.Animal
+@using WebApplication1.Models
 
 @{
     ViewData["Title"] = "Create";
@@ -24,17 +25,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="Size" class="control-label"></label>
-                <select asp-for="Size" class="form-control"></select>
+                <select asp-for="Size" class="form-control" asp-items="Html.GetEnumSelectList<Animal.SizeEnum>()">
+                    <option value="">-- Select Size --</option>
+                </select>
                 <span asp-validation-for="Size" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DietaryClass" class="control-label"></label>
-                <select asp-for="DietaryClass" class="form-control"></select>
+                <select asp-for="DietaryClass" class="form-control" asp-items="Html.GetEnumSelectList<Animal.Diet>()">
+                    <option value="">-- Select Dietary Class --</option>
+                </select>
                 <span asp-validation-for="DietaryClass" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ActivityPattern" class="control-label"></label>
-                <select asp-for="ActivityPattern" class="form-control"></select>
+                <select asp-for="ActivityPattern" class="form-control" asp-items="Html.GetEnumSelectList<Animal.Activity>()">
+                    <option value="">-- Select Activity Pattern --</option>
+                </select>
                 <span asp-validation-for="ActivityPattern" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,16 +56,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="SecurityRequirement" class="control-label"></label>
-                <select asp-for="SecurityRequirement" class="form-control"></select>
+                <select asp-for="SecurityRequirement" class="form-control" asp-items="Html.GetEnumSelectList<SecurityLevel>()">
+                    <option value="">-- Select Security Requirement --</option>
+                </select>
                 <span asp-validation-for="SecurityRequirement" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="CategoryId" class="form-control" asp-items="@((SelectList)ViewData["CategoryList"])">
+                    <option value="">-- Select Category --</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="EnclosureId" class="control-label"></label>
-                <select asp-for="EnclosureId" class ="form-control" asp-items="ViewBag.EnclosureId"></select>
+                <select asp-for="EnclosureId" class ="form-control" asp-items="@((SelectList)ViewData["EnclosureList"])">
+                <option value="">-- Select Category --</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -68,7 +81,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

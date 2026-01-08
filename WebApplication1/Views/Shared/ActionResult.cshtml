@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = ViewData["ActionName"] ?? "Action Result";
     var animalName = ViewData["AnimalName"] as string ?? "";
+    var originController = ViewData["OriginController"] as string ?? "Home";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -30,4 +31,4 @@ else
     <p>No data to display.</p>
 }
 
-<a href="@Url.Action("Index", "Home")">Back to home</a>
+<a asp-controller="@originController" asp-action="Index" class="btn btn-primary">Back to @originController</a>

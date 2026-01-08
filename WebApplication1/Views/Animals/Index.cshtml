@@ -1,99 +1,64 @@
-﻿@model IEnumerable<WebApplication1.Models.Animal>
+﻿@model IEnumerable<dynamic>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Animals";
+    var searchTerm = ViewData["SearchTerm"] as string ?? "";
 }
 
-<h1>Index</h1>
+<h1>Animals</h1>
+
+<form asp-action="Index" method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchTerm" value="@searchTerm" class="form-control" placeholder="Search by name, species, category, enclosure, prey, or status..." />
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a asp-action="Index" class="btn btn-secondary">Clear</a>
+    </div>
+</form>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
-<table class="table">
+
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Species)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Size)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DietaryClass)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ActivityPattern)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAwake)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prey)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SpaceRequirement)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SecurityRequirement)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Enclosure)
-            </th>
-            <th></th>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Category</th>
+            <th>Enclosure</th>
+            <th>Size</th>
+            <th>Diet</th>
+            <th>Activity</th>
+            <th>Prey</th>
+            <th>Space Req.</th>
+            <th>Security Req.</th>
+            <th>Status</th>
+            <th style="width: 260px;">Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
         <tr>
+            <td>@item.Name</td>
+            <td>@item.Species</td>
+            <td>@item.CategoryName</td>
+            <td>@item.EnclosureName</td>
+            <td>@item.Size</td>
+            <td>@item.DietaryClass</td>
+            <td>@item.ActivityPattern</td>
+            <td>@item.Prey</td>
+            <td>@item.SpaceRequirement</td>
+            <td>@item.SecurityRequirement</td>
+            <td>@item.Status</td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Species)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DietaryClass)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActivityPattern)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAwake)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prey)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SpaceRequirement)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecurityRequirement)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Enclosure.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Details</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                <a asp-action="Sunrise" asp-route-id="@item.Id" class="btn btn-outline-success btn-sm">Sunrise</a>
+                <a asp-action="Sunset" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Sunset</a>
+                <a asp-action="FeedingTime" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm">Feeding</a>
+                <a asp-action="CheckConstraints" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Constraints</a>
             </td>
         </tr>
 }
