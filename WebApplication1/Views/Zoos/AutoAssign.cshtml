@@ -6,7 +6,7 @@
 
 <h1>Auto Assign Animals to Enclosures</h1>
 
-<div class="alert alert-info">
+<div class="alert alert-dismissible">
     <h4>Choose Assignment Mode</h4>
     <p>This feature will automatically assign animals to enclosures based on their requirements.</p>
     <p><strong>There @(Model != 1 ? "are " : "is ") currently @Model unassigned animal@(Model != 1 ? "s" : "") in the zoo.</strong></p>
@@ -26,12 +26,6 @@
                 It will try to fit unassigned animals into existing enclosures first, and only create
                 new enclosures when necessary.
             </p>
-            <ul class="ms-4">
-                <li>Existing enclosures remain unchanged</li>
-                <li>Currently assigned animals stay in their enclosures</li>
-                <li>New animals fill available space in existing enclosures</li>
-                <li>New enclosures created only for remaining animals</li>
-            </ul>
         </div>
     </div>
 
@@ -45,12 +39,6 @@
                 <strong>Warning:</strong> This option will delete ALL existing enclosures and reassign ALL animals
                 from scratch. This creates a completely new optimal layout.
             </p>
-            <ul class="ms-4">
-                <li>All existing enclosures will be deleted</li>
-                <li>All current assignments will be removed</li>
-                <li>Fresh enclosures created with optimal grouping</li>
-                <li>All animals reassigned based on compatibility</li>
-            </ul>
         </div>
     </div>
 

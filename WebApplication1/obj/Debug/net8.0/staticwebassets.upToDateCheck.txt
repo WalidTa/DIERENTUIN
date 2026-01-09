@@ -1,5 +1,12 @@
-wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\animals.png
+wwwroot\images\Assign.png
+wwwroot\images\category.png
+wwwroot\images\check.png
+wwwroot\images\enclosure.png
+wwwroot\images\food.png
+wwwroot\images\moon.png
+wwwroot\images\sun.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -59,3 +66,4 @@ wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\css\home.css
+wwwroot\css\site.css

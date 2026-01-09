@@ -6,61 +6,81 @@
     var enclosureId = ViewData["EnclosureId"];
 }
 
-<h1>Assign Animals to Enclosure</h1>
+<div class="mb-4">
+    <h1>🏠 Assign Animals to Enclosure</h1>
+    <p class="text-muted">@enclosureName</p>
+</div>
 
-<h4>@enclosureName</h4>
-<hr />
+<div class="alert">
+    Select the animals you want to assign to this enclosure. Animals already assigned are pre-selected.
+</div>
 
 <form asp-action="AssignAnimals" asp-route-id="@enclosureId" method="post">
     @Html.AntiForgeryToken()
     
-    <div class="form-group mb-3">
-        <p class="text-muted">Select the animals you want to assign to this enclosure. Animals already assigned to this enclosure are pre-selected.</p>
-    </div>
-
-    <div class="row">
-        <div class="col-md-10">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th style="width: 50px;">
-                            <input type="checkbox" id="selectAll" class="form-check-input" />
-                        </th>
-                        <th>Animal Name</th>
-                        <th>Species</th>
-                        <th>Category</th>
-                        <th>Current Enclosure</th>
-                        <th>Space Req.</th>
-                        <th>Security Req.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var animal in Model)
-                    {
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
                         <tr>
-                            <td>
-                                <input type="checkbox" 
-                                       name="selectedAnimalIds" 
-                                       value="@animal.Id" 
-                                       class="form-check-input animal-checkbox"
-                                       @(animal.IsAssigned ? "checked" : "") />
-                            </td>
-                            <td>@animal.Name</td>
-                            <td>@animal.Species</td>
-                            <td>@(animal.Category != null ? animal.Category.Name : "None")</td>
-                            <td>@(animal.Enclosure != null ? animal.Enclosure.Name : "None")</td>
-                            <td>@animal.SpaceRequirement</td>
-                            <td>@animal.SecurityRequirement</td>
+                            <th style="width: 50px;">
+                                <input type="checkbox" id="selectAll" class="form-check-input" />
+                            </th>
+                            <th>Animal Name</th>
+                            <th>Species</th>
+                            <th>Category</th>
+                            <th>Current Enclosure</th>
+                            <th>Space Req.</th>
+                            <th>Security Req.</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var animal in Model)
+                        {
+                            <tr class="clickable-row" style="cursor: pointer;">
+                                <td>
+                                    <input type="checkbox" 
+                                           name="selectedAnimalIds" 
+                                           value="@animal.Id" 
+                                           class="form-check-input animal-checkbox"
+                                           @(animal.IsAssigned ? "checked" : "") />
+                                </td>
+                                <td><strong>@animal.Name</strong></td>
+                                <td>@animal.Species</td>
+                                <td>
+                                    @if (animal.Category != null)
+                                    {
+                                        <span class="badge bg-secondary">@animal.Category.Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">None</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (animal.Enclosure != null)
+                                    {
+                                        <span class="badge bg-info">@animal.Enclosure.Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">None</span>
+                                    }
+                                </td>
+                                <td>@animal.SpaceRequirement</td>
+                                <td>@animal.SecurityRequirement</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save Assignments</button>
-        <a asp-action="index" class="btn btn-secondary">Cancel</a>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-success">Save Assignments</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </div>
 </form>
 
@@ -75,11 +95,27 @@
         });
 
         // Update "Select All" checkbox state based on individual checkboxes
+        function updateSelectAllState() {
+            const allCheckboxes = document.querySelectorAll('.animal-checkbox');
+            const checkedCheckboxes = document.querySelectorAll('.animal-checkbox:checked');
+            document.getElementById('selectAll').checked = allCheckboxes.length === checkedCheckboxes.length;
+        }
+
         document.querySelectorAll('.animal-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const allCheckboxes = document.querySelectorAll('.animal-checkbox');
-                const checkedCheckboxes = document.querySelectorAll('.animal-checkbox:checked');
-                document.getElementById('selectAll').checked = allCheckboxes.length === checkedCheckboxes.length;
+            checkbox.addEventListener('change', updateSelectAllState);
+        });
+
+        // Make entire row clickable
+        document.querySelectorAll('.clickable-row').forEach(row => {
+            row.addEventListener('click', function(e) {
+                // Don't toggle if clicking directly on the checkbox
+                if (e.target.type === 'checkbox') {
+                    return;
+                }
+                
+                const checkbox = this.querySelector('.animal-checkbox');
+                checkbox.checked = !checkbox.checked;
+                updateSelectAllState();
             });
         });
     </script>

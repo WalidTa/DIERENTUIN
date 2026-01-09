@@ -31,9 +31,27 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, p, span, div, label, td, th, li, a {
-    color: var(--zoo-orange);
+    color: white;
 }
 
 .card {
-    background-color: lightgray;
+    background-color: transparent;
+    border: none;
+}
+
+.card-title{
+    color: var(--zoo-orange);
+}
+
+.table-responsive {
+    overflow: visible !important;
+}
+
+.table tbody tr {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute !important;
+    z-index: 1050;
 }

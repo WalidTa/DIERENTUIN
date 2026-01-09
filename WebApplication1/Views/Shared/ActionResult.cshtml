@@ -6,29 +6,53 @@
     var originController = ViewData["OriginController"] as string ?? "Home";
 }
 
-<h2>@ViewData["Title"]</h2>
-
-@if (!string.IsNullOrEmpty(animalName))
-{
-    <p><strong>@animalName</strong></p>
-}
-
-@if (Model is IEnumerable<string> messages)
-{
-    <ul>
-        @foreach (var msg in messages)
+<div class="container" style="max-width: 800px;">
+    <div class="text-center mb-4">
+        <h1>@ViewData["Title"]</h1>
+        @if (!string.IsNullOrEmpty(animalName))
         {
-            <li>@msg</li>
+            <p class="text-muted">@animalName</p>
         }
-    </ul>
-}
-else if (Model is string message)
-{
-    <p>@message</p>
-}
-else
-{
-    <p>No data to display.</p>
-}
+    </div>
 
-<a asp-controller="@originController" asp-action="Index" class="btn btn-primary">Back to @originController</a>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            @if (Model is IEnumerable<string> messages)
+            {
+                <div class="text-start">
+                    @foreach (var msg in messages)
+                    {
+                        @if (msg.StartsWith("==="))
+                        {
+                            <div class="fw-bold fs-5 mb-3 mt-3 text-center">@msg.Replace("===", "").Trim()</div>
+                        }
+                        else if (msg.StartsWith("---"))
+                        {
+                            <div class="fw-bold text-primary mt-3 mb-2">@msg.Replace("---", "").Trim()</div>
+                        }
+                        else if (!string.IsNullOrWhiteSpace(msg))
+                        {
+                            <div class="mb-1">@msg</div>
+                        }
+                        else
+                        {
+                            <div class="mb-2"></div>
+                        }
+                    }
+                </div>
+            }
+            else if (Model is string message)
+            {
+                <p class="text-center mb-0">@message</p>
+            }
+            else
+            {
+                <p class="text-muted text-center mb-0">No data to display.</p>
+            }
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <a asp-controller="@originController" asp-action="Index" class="btn btn-secondary">← Back to @originController</a>
+    </div>
+</div>

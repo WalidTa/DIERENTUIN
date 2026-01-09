@@ -5,53 +5,92 @@
     var searchTerm = ViewData["SearchTerm"] as string ?? "";
 }
 
-<h1>Enclosures</h1>
+<div class="mb-4">
+    <h1>🏠 Enclosures</h1>
+    <p class="text-muted">Manage all enclosures in your zoo</p>
+</div>
 
-<form asp-action="Index" method="get" class="mb-3">
-    <div class="input-group">
-        <input type="text" name="searchTerm" value="@searchTerm" class="form-control" placeholder="Search by property" />
-        <button type="submit" class="btn btn-primary">Search</button>
-        <a asp-action="Index" class="btn btn-secondary">Clear</a>
+<div class="card mb-3 bg-transparent border">
+    <div class="card-body bg-transparent">
+        <form asp-action="Index" method="get">
+            <div class="input-group">
+                <input type="text" name="searchTerm" value="@searchTerm" class="form-control bg-transparent text-white" placeholder="Search enclosures..." />
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a asp-action="Index" class="btn btn-secondary">Clear</a>
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-success">+ Create New Enclosure</a>
+</div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Security Level</th>
-            <th>Size</th>
-            <th>Habitat</th>
-            <th>Climate</th>
-            <th>Animal Count</th>
-            <th style="width: 450px;">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model)
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Security Level</th>
+                <th>Size</th>
+                <th>Habitat</th>
+                <th>Climate</th>
+                <th>Animal Count</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model)
+    {
+            <tr>
+                <td><strong>@item.Name</strong></td>
+                <td>
+                    @if (item.SecurityLevel == WebApplication1.Models.SecurityLevel.Low)
+                    {
+                        <span class="badge bg-success">Low</span>
+                    }
+                    else if (item.SecurityLevel == WebApplication1.Models.SecurityLevel.Medium)
+                    {
+                        <span class="badge bg-warning text-dark">Medium</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">High</span>
+                    }
+                </td>
+                <td>@item.Size</td>
+                <td>@item.Habitat</td>
+                <td>@item.Climate</td>
+                <td><span class="badge bg-info">@item.AnimalCount animals</span></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton@(item.Id)" data-bs-toggle="dropdown" aria-expanded="false">
+                            ⋮
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton@(item.Id)">
+                            <li><h6 class="dropdown-header">Manage</h6></li>
+                            <li><a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">📋 Details</a></li>
+                            <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id">✏️ Edit</a></li>
+                            <li><a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@item.Id">🗑️ Delete</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Actions</h6></li>
+                            <li><a class="dropdown-item" asp-action="AssignAnimals" asp-route-id="@item.Id">🦁 Assign Animals</a></li>
+                            <li><a class="dropdown-item" asp-action="Sunrise" asp-route-id="@item.Id">☀️ Sunrise</a></li>
+                            <li><a class="dropdown-item" asp-action="Sunset" asp-route-id="@item.Id">🌙 Sunset</a></li>
+                            <li><a class="dropdown-item" asp-action="FeedingTime" asp-route-id="@item.Id">🍖 Feeding Time</a></li>
+                            <li><a class="dropdown-item" asp-action="CheckConstraints" asp-route-id="@item.Id">✅ Check Constraints</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+
+@if (!Model.Any())
 {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.SecurityLevel</td>
-            <td>@item.Size</td>
-            <td>@item.Habitat</td>
-            <td>@item.Climate</td>
-            <td>@item.AnimalCount</td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Details</a>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">Edit</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Delete</a>
-                <a asp-action="AssignAnimals" asp-route-id="@item.Id" class="btn btn-outline-success btn-sm">Assign animals</a>
-                <a asp-action="Sunrise" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Sunrise</a>
-                <a asp-action="Sunset" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm">Sunset</a>
-                <a asp-action="FeedingTime" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Feed</a>
-                <a asp-action="CheckConstraints" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Check constraints</a>
-            </td>
-        </tr>
+    <div class="alert alert-info">
+        <strong>No enclosures found.</strong> Try a different search or create a new enclosure.
+    </div>
 }
-    </tbody>
-</table>

@@ -2,90 +2,106 @@
 @using WebApplication1.Models
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Enclosure Details";
 }
 
-<h1>Enclosure Details</h1>
-
-<div>
-    <h4>@Model.Name</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-3">
-            Security Level
-        </dt>
-        <dd class="col-sm-9">
-            @Model.SecurityLevel
-        </dd>
-        <dt class="col-sm-3">
-            Size
-        </dt>
-        <dd class="col-sm-9">
-            @Model.Size
-        </dd>
-        <dt class="col-sm-3">
-            Habitat
-        </dt>
-        <dd class="col-sm-9">
-            @Model.Habitat
-        </dd>
-        <dt class="col-sm-3">
-            Climate
-        </dt>
-        <dd class="col-sm-9">
-            @Model.Climate
-        </dd>
-        <dt class="col-sm-3">
-            Animals in Enclosure
-        </dt>
-        <dd class="col-sm-9">
-            @Model.Animals.Count
-        </dd>
-    </dl>
+<div class="mb-4">
+    <h1>🏠 @Model.Name</h1>
+    <p class="text-muted">Enclosure Details</p>
 </div>
 
-<h5>Assigned Animals</h5>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9"><strong>@Model.Name</strong></dd>
+
+            <dt class="col-sm-3">Security Level</dt>
+            <dd class="col-sm-9">
+                @if (Model.SecurityLevel == SecurityLevel.Low)
+                {
+                    <span class="badge bg-success">Low</span>
+                }
+                else if (Model.SecurityLevel == SecurityLevel.Medium)
+                {
+                    <span class="badge bg-warning text-dark">Medium</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">High</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Size</dt>
+            <dd class="col-sm-9">@Model.Size sq meters</dd>
+
+            <dt class="col-sm-3">Habitat</dt>
+            <dd class="col-sm-9">@Model.Habitat</dd>
+
+            <dt class="col-sm-3">Climate</dt>
+            <dd class="col-sm-9">@Model.Climate</dd>
+
+            <dt class="col-sm-3">Animals in Enclosure</dt>
+            <dd class="col-sm-9"><span class="badge bg-info">@Model.Animals.Count animals</span></dd>
+        </dl>
+    </div>
+</div>
+
 @if (Model.Animals.Any())
 {
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Species</th>
-                <th>Category</th>
-                <th>Size</th>
-                <th>Space Req.</th>
-                <th>Security Req.</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var animal in Model.Animals)
-            {
-                <tr>
-                    <td>@animal.Name</td>
-                    <td>@animal.Species</td>
-                    <td>@(animal.Category != null ? animal.Category.Name : "None")</td>
-                    <td>@animal.Size</td>
-                    <td>@animal.SpaceRequirement</td>
-                    <td>@animal.SecurityRequirement</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="card shadow-sm mt-4">
+        <div class="card-header">
+            <h5 class="mb-0">Assigned Animals</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Species</th>
+                            <th>Category</th>
+                            <th>Size</th>
+                            <th>Space Req.</th>
+                            <th>Security Req.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var animal in Model.Animals)
+                        {
+                            <tr>
+                                <td><strong>@animal.Name</strong></td>
+                                <td>@animal.Species</td>
+                                <td>
+                                    @if (animal.Category != null)
+                                    {
+                                        <span class="badge bg-secondary">@animal.Category.Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">None</span>
+                                    }
+                                </td>
+                                <td>@animal.Size</td>
+                                <td>@animal.SpaceRequirement</td>
+                                <td>@animal.SecurityRequirement</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 }
 else
 {
-    <p class="text-muted">No animals assigned to this enclosure yet.</p>
+    <div class="alert alert-info mt-4">
+        <strong>No animals assigned yet.</strong> Click "Assign Animals" to add animals to this enclosure.
+    </div>
 }
 
 <div class="mt-3">
-    <a asp-action="AssignAnimals" asp-route-id="@Model.Id" class="btn btn-success">Assign Animals</a>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="AssignAnimals" asp-route-id="@Model.Id" class="btn btn-success">Assign Animals</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
