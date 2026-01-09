@@ -184,7 +184,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Categories/AssignAnimals/5
+        // Assign animals to this category - similar pattern to EnclosuresController.AssignAnimals
         public async Task<IActionResult> AssignAnimals(int? id)
         {
             if (id == null)
@@ -244,7 +244,6 @@ namespace WebApplication1.Controllers
             {
                 if (selectedAnimalIds != null && selectedAnimalIds.Contains(animal.Id))
                 {
-                    // Assign to this category
                     animal.CategoryId = id;
                 }
                 else if (animal.CategoryId == id)

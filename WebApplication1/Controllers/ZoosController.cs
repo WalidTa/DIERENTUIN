@@ -187,18 +187,16 @@ namespace WebApplication1.Controllers
                     continue;
                 }
 
+                // Calculate space per animal in enclosure
                 double availableSpace = animal.Enclosure.Size / animal.Enclosure.Animals.Count;
                 bool hasEnoughSpace = availableSpace >= animal.SpaceRequirement;
                 bool meetsSecurityRequirements = (int)animal.SecurityRequirement <= (int)animal.Enclosure.SecurityLevel;
 
-                // Space check
                 results.Add($"Enclosure: {animal.Enclosure.Name}");
                 results.Add($"Space: Requires {animal.SpaceRequirement}, has {availableSpace:F2} - {(hasEnoughSpace ? " Sufficient" : " Insufficient")}");
-
-                // Security check
                 results.Add($"Security: Requires {animal.SecurityRequirement}, enclosure has {animal.Enclosure.SecurityLevel} - {(meetsSecurityRequirements ? " Met" : " Not met")}");
 
-                // Mood determination
+                // Determine mood based on constraints
                 if (hasEnoughSpace && meetsSecurityRequirements)
                 {
                     results.Add($"Status: {animal.Name} is happy! All constraints met!");
@@ -226,7 +224,7 @@ namespace WebApplication1.Controllers
             return View("ActionResult", results);
         }
 
-        // GET: Zoos/AutoAssign
+        // Auto-assign animals to enclosures based on requirements
         public async Task<IActionResult> AutoAssign()
         {
             try
@@ -239,10 +237,7 @@ namespace WebApplication1.Controllers
             }
             catch (Exception ex)
             {
-                // Log the error
                 Console.WriteLine($"Error in AutoAssign GET: {ex.Message}");
-
-                // Return view with 0 count as fallback
                 return View(0);
             }
         }
@@ -256,7 +251,7 @@ namespace WebApplication1.Controllers
 
             if (assignmentMode == "fresh")
             {
-                // Remove all existing enclosures
+                // Remove all existing enclosures and start from scratch
                 var existingEnclosures = await _context.Enclosures.Include(e => e.Animals).ToListAsync();
                 
                 results.Add("=== Starting fresh ===");
@@ -265,7 +260,7 @@ namespace WebApplication1.Controllers
 
                 foreach (var enclosure in existingEnclosures)
                 {
-                    // Unassign all animals
+                    // Unassign all animals first
                     foreach (var animal in enclosure.Animals)
                     {
                         animal.EnclosureId = null;
@@ -296,7 +291,7 @@ namespace WebApplication1.Controllers
             results.Add($"automatically assigning {unassignedAnimals.Count} animal(s).");
             results.Add("");
 
-            // Group animals by similar requirements
+            // Group animals by security requirement and category
             var animalGroups = unassignedAnimals
                 .GroupBy(a => new { a.SecurityRequirement, Category = a.Category?.Name ?? "Uncategorized" })
                 .ToList();
@@ -312,6 +307,7 @@ namespace WebApplication1.Controllers
 
                 if (assignmentMode == "complete")
                 {
+                    // Try to fit animals into existing enclosures first
                     var existingEnclosures = await _context.Enclosures
                         .Include(e => e.Animals)
                         .Where(e => (int)e.SecurityLevel >= (int)group.Key.SecurityRequirement)
@@ -324,7 +320,7 @@ namespace WebApplication1.Controllers
                         var remainingAnimals = new List<Animal>(groupAnimals);
                         foreach (var animal in remainingAnimals)
                         {
-                            // Check if animal fits
+                            // Check if animal fits in available space
                             double currentUsedSpace = enclosure.Animals.Sum(a => a.SpaceRequirement);
                             double availableSpace = enclosure.Size - currentUsedSpace;
 
@@ -342,7 +338,7 @@ namespace WebApplication1.Controllers
                 // Create new enclosures for remaining animals
                 while (groupAnimals.Any())
                 {
-                    // Calculate required size for this enclosure
+                    // Take up to 5 animals per enclosure
                     var animalsForThisEnclosure = new List<Animal>();
                     double totalSpaceNeeded = 0;
 
@@ -352,6 +348,7 @@ namespace WebApplication1.Controllers
                         totalSpaceNeeded += animal.SpaceRequirement;
                     }
 
+                    // Add 20% buffer space
                     double enclosureSize = totalSpaceNeeded * 1.2;
 
                     var habitat = Enclosure.HabitatEnum.Grassland; 

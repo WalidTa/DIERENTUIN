@@ -295,7 +295,6 @@ namespace WebApplication1.Controllers
 
             string status;
 
-            // Check if the animal has a specific prey
             if (!animal.IsAwake)
             {
                 status = $"{animal.Name} is asleep right now because the sun is {(animal.ActivityPattern == Animal.Activity.Nocturnal ? "up" : "down")}!";
@@ -306,7 +305,6 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                // Default output
                 status = $"{animal.Name} is fed according to its diet: {animal.DietaryClass}.";
             }
 
@@ -332,6 +330,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
+                // Calculate space per animal in enclosure
                 double availableSpace = animal.Enclosure.Size / animal.Enclosure.Animals.Count;
                 bool hasEnoughSpace = availableSpace >= animal.SpaceRequirement;
                 bool meetsSecurityRequirements = (int)animal.SecurityRequirement <= (int)animal.Enclosure.SecurityLevel;
@@ -356,7 +355,7 @@ namespace WebApplication1.Controllers
                     messages.Add($"{animal.Name} does not meet the security requirements in {animal.Enclosure.Name}.");
                 }
 
-                // Mood determination
+                // Determine mood based on constraints
                 if (hasEnoughSpace && meetsSecurityRequirements)
                 {
                     messages.Add($"{animal.Name} is happy! The enclosure meets all constraints!");

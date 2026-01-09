@@ -118,26 +118,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWm9vc1xBdXRvQXNzaWduLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/wtano/Code/DIERENTUIN/WebApplication1/Views/Zoos/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWm9vc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/wtano/Code/DIERENTUIN/WebApplication1/Views/Zoos/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWm9vc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/wtano/Code/DIERENTUIN/WebApplication1/Views/Zoos/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWm9vc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/wtano/Code/DIERENTUIN/WebApplication1/Views/Zoos/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWm9vc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/wtano/Code/DIERENTUIN/WebApplication1/Views/Zoos/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWm9vc1xJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/wtano/Code/DIERENTUIN/WebApplication1/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

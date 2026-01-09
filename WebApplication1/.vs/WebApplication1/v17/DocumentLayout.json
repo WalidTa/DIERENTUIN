@@ -3,6 +3,30 @@
   "WorkspaceRootPath": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierentuin\\webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierentuin\\webapplication1\\controllers\\zooscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:controllers\\zooscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierentuin\\webapplication1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierentuin\\webapplication1\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierentuin\\webapplication1\\controllers\\enclosurescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:controllers\\enclosurescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierentuin\\webapplication1\\controllers\\animalscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:controllers\\animalscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|c:\\users\\wtano\\code\\dierentuin\\webapplication1\\views\\zoos\\autoassign.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{0E943FCA-241C-42EB-9FB9-CCCF5742637D}|WebApplication1.csproj|solutionrelative:views\\zoos\\autoassign.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -90,11 +114,89 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T17:05:30.736Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ZoosController.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Controllers\\ZoosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ZoosController.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Controllers\\ZoosController.cs",
+              "RelativeToolTip": "Controllers\\ZoosController.cs",
+              "ViewState": "AgIAAA4BAAAAAAAAAAAtwCEBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T16:55:20.306Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T16:55:03.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CategoriesController.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Controllers\\CategoriesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CategoriesController.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Controllers\\CategoriesController.cs",
+              "RelativeToolTip": "Controllers\\CategoriesController.cs",
+              "ViewState": "AgIAAOYAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T16:49:58.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EnclosuresController.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Controllers\\EnclosuresController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EnclosuresController.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Controllers\\EnclosuresController.cs",
+              "RelativeToolTip": "Controllers\\EnclosuresController.cs",
+              "ViewState": "AgIAAMkBAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T16:48:57.787Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AnimalsController.cs",
+              "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Controllers\\AnimalsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AnimalsController.cs",
+              "ToolTip": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Controllers\\AnimalsController.cs",
+              "RelativeToolTip": "Controllers\\AnimalsController.cs",
+              "ViewState": "AgIAABoBAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T16:42:55.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "ActionResult.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Shared\\ActionResult.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\ActionResult.cshtml",
@@ -107,20 +209,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "AutoAssign.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Zoos\\AutoAssign.cshtml",
               "RelativeDocumentMoniker": "Views\\Zoos\\AutoAssign.cshtml",
               "ToolTip": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Zoos\\AutoAssign.cshtml",
               "RelativeToolTip": "Views\\Zoos\\AutoAssign.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACgAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-01-09T16:07:24.979Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
@@ -133,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "AssignAnimals.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Enclosures\\AssignAnimals.cshtml",
               "RelativeDocumentMoniker": "Views\\Enclosures\\AssignAnimals.cshtml",
@@ -146,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Enclosures\\Delete.cshtml",
               "RelativeDocumentMoniker": "Views\\Enclosures\\Delete.cshtml",
@@ -159,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Enclosures\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Enclosures\\Index.cshtml",
@@ -172,7 +274,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "AssignAnimals.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Categories\\AssignAnimals.cshtml",
               "RelativeDocumentMoniker": "Views\\Categories\\AssignAnimals.cshtml",
@@ -185,7 +287,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Categories\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Categories\\Index.cshtml",
@@ -198,7 +300,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "site.css",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
@@ -211,7 +313,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Enclosures\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Enclosures\\Edit.cshtml",
@@ -224,7 +326,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Enclosures\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Enclosures\\Create.cshtml",
@@ -237,7 +339,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Enclosures\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\Enclosures\\Details.cshtml",
@@ -250,7 +352,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 19,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Animals\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Animals\\Create.cshtml",
@@ -263,7 +365,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 20,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Animals\\Delete.cshtml",
               "RelativeDocumentMoniker": "Views\\Animals\\Delete.cshtml",
@@ -276,7 +378,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 23,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Categories\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Categories\\Edit.cshtml",
@@ -289,7 +391,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 24,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Categories\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Categories\\Create.cshtml",
@@ -302,7 +404,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 25,
               "Title": "Category.cs",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Models\\Category.cs",
               "RelativeDocumentMoniker": "Models\\Category.cs",
@@ -315,7 +417,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 21,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Categories\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\Categories\\Details.cshtml",
@@ -328,7 +430,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Animals\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Animals\\Index.cshtml",
@@ -341,7 +443,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 22,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Users\\wtano\\Code\\DIERENTUIN\\WebApplication1\\Views\\Categories\\Delete.cshtml",
               "RelativeDocumentMoniker": "Views\\Categories\\Delete.cshtml",

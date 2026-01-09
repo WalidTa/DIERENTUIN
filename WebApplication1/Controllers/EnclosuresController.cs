@@ -270,7 +270,8 @@ namespace WebApplication1.Controllers
             return RedirectToAction(nameof(Details), new { id = id });
         }
 
-        // Actions: Sunrise for Enclosure
+        // Zoo Actions for enclosure - works on all animals in the enclosure
+        
         public async Task<IActionResult> Sunrise(int id)
         {
             var enclosure = await _context.Enclosures
@@ -439,7 +440,7 @@ namespace WebApplication1.Controllers
             var results = new List<string>();
 
             // Add enclosure summary
-            results.Add($"=== {enclosure.Name} contraint check ===");
+            results.Add($"=== {enclosure.Name} constraint check ===");
             results.Add($"Total Size: {enclosure.Size} | Security Level: {enclosure.SecurityLevel}");
             results.Add($"Number of Animals: {enclosure.Animals.Count}");
             results.Add("");
@@ -448,17 +449,15 @@ namespace WebApplication1.Controllers
             {
                 results.Add($"--- {animal.Name} ({animal.Species}) ---");
 
+                // Calculate space per animal in enclosure
                 double availableSpace = enclosure.Size / enclosure.Animals.Count;
                 bool hasEnoughSpace = availableSpace >= animal.SpaceRequirement;
                 bool meetsSecurityRequirements = (int)animal.SecurityRequirement <= (int)enclosure.SecurityLevel;
 
-                // Space check
                 results.Add($"Space: Requires {animal.SpaceRequirement}, has {availableSpace:F2} - {(hasEnoughSpace ? " Sufficient" : " Insufficient")}");
-
-                // Security check
                 results.Add($"Security: Requires {animal.SecurityRequirement}, enclosure has {enclosure.SecurityLevel} - {(meetsSecurityRequirements ? " Met" : " Not met")}");
 
-                // Mood determination
+                // Determine mood based on constraints
                 if (hasEnoughSpace && meetsSecurityRequirements)
                 {
                     results.Add($"Status: {animal.Name} is happy! All constraints met!");
